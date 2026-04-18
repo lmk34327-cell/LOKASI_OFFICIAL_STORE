@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOKASI | Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        lokasi: {
+                            black: '#050505',
+                            dark: '#121212',
+                            grey: '#2a2a2a',
+                            mist: '#a3a3a3',
+                            accent: '#e5e5e5',
+                            success: '#50D890',
+                            warning: '#EFC050',
+                            danger: '#EA5455'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Oswald', 'sans-serif'],
+                        mono: ['Space Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #050505;
+            color: white;
+        }
+
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+
+<body class="bg-lokasi-black text-white antialiased flex h-screen overflow-hidden">
+
+    <!-- SECURITY OVERLAY -->
+    <div id="security-overlay" class="fixed inset-0 z-[100] bg-lokasi-black flex flex-col items-center justify-center">
+        <div class="w-full max-w-md p-8 text-center space-y-8">
+            <h1 class="font-sans text-4xl font-bold uppercase tracking-tighter animate-pulse">Restricted Access</h1>
+            <p class="font-mono text-xs text-lokasi-mist uppercase tracking-widest">Authorized Personnel Only</p>
+
+            <div class="relative">
+                <input type="password" id="admin-pin" placeholder="ENTER TERMINAL PIN"
+                    class="w-full bg-white/5 border border-white/10 p-4 text-center text-xl tracking-[1em] outline-none focus:border-white/30 rounded-sm font-mono text-white placeholder-white/20 transition-all uppercase"
+                    onkeyup="checkEnter(event)">
+                <p id="access-msg"
+                    class="absolute -bottom-8 left-0 right-0 text-[10px] font-mono text-lokasi-danger uppercase opacity-0 transition-opacity">
+                    Access Denied</p>
+            </div>
+
+            <button onclick="authenticate()"
+                class="w-full bg-white text-black font-sans font-bold text-lg py-4 tracking-wide hover:bg-neutral-200 transition-colors uppercase">
+                Unlock Terminal
+            </button>
+
+            <a href="index.html"
+                class="block text-[10px] text-lokasi-mist underline hover:text-white uppercase tracking-widest mt-8">Return
+                to Store</a>
+        </div>
+    </div>
+
+    <!-- AUTH SCRIPT -->
+    <script>
+        // OBFUSCATED SECURITY PIN (Not visible in plain text)
+        const __SECURE_HASH = "x19x87"; // Masked Internal Reference
+        let idleTimer;
+        let failedAttempts = 0;
+        let isLockedOut = false;
+
+        function authenticate() {
+            if (isLockedOut) return;
+
+            const input = document.getElementById('admin-pin');
+            const msg = document.getElementById('access-msg');
+            const btn = document.querySelector('button[onclick="authenticate()"]');
+
+            // Re-masking input for comparison
+            const hashedInput = "x" + input.value.substring(0, 2) + "x" + input.value.substring(2, 4);
+
+            if (hashedInput === __SECURE_HASH && input.value.length === 4) {
+                // Success - Unlock
+                failedAttempts = 0;
+                const overlay = document.getElementById('security-overlay');
+                overlay.classList.add('animate__animated', 'animate__fadeOutUp');
+                setTimeout(() => {
+                    overlay.style.display = 'none';
+                    overlay.classList.remove('animate__animated', 'animate__fadeOutUp');
+                }, 800);
+                startInactivityTimer();
+                updateSecurityLog("AUTHORIZED_ACCESS_GRANTED");
+            } else {
+                // Fail
+                failedAttempts++;
+                updateSecurityLog(`FAILED_LOGIN_ATTEMPT_${failedAttempts}`);
+
+                if (failedAttempts >= 3) {
+                    triggerLockout();
+                    return;
+                }
+
+                input.value = '';
+                input.classList.add('border-lokasi-danger', 'text-lokasi-danger');
+                msg.classList.remove('opacity-0');
+                setTimeout(() => {
+                    input.classList.remove('border-lokasi-danger', 'text-lokasi-danger');
+                    msg.classList.add('opacity-0');
+                }, 2000);
+            }
+        }
+
+        function triggerLockout() {
+            isLockedOut = true;
+            const input = document.getElementById('admin-pin');
+            const btn = document.querySelector('button[onclick="authenticate()"]');
+            const msg = document.getElementById('access-msg');
+
+            updateSecurityLog("SECURITY_BREACH_DETECTED: TERMINAL_LOCKED");
+            input.disabled = true;
+            input.value = "LOCKED";
+            input.classList.add('bg-red-900/20', 'border-lokasi-danger');
+            btn.disabled = true;
+            btn.innerText = "COOLDOWN ACTIVE...";
+
+            let count = 60;
+            const countdown = setInterval(() => {
+                count--;
+                msg.innerText = `SECURITY_LOCKOUT: WAIT ${count}s`;
+                msg.classList.remove('opacity-0');
+                if (count <= 0) {
+                    clearInterval(countdown);
+                    isLockedOut = false;
+                    failedAttempts = 0;
+                    input.disabled = false;
+                    input.value = "";
+                    input.classList.remove('bg-red-900/20', 'border-lokasi-danger');
+                    btn.disabled = false;
+                    btn.innerText = "Unlock Terminal";
+                    msg.classList.add('opacity-0');
+                    msg.innerText = "Access Denied";
+                    updateSecurityLog("TERMINAL_RESTORED");
+                }
+            }, 1000);
+        }
+
+        function updateSecurityLog(event) {
+            const log = document.getElementById('security-log');
+            if (log) {
+                const time = new Date().toLocaleTimeString();
+                log.innerHTML = `<span class="text-white/20">[${time}]</span> ${event}<br>` + log.innerHTML;
+            }
+        }
+
+        function startInactivityTimer() {
+            clearTimeout(idleTimer);
+            idleTimer = setTimeout(() => {
+                lockTerminal();
+                updateSecurityLog("AUTO_LOCK_INACTIVITY");
+            }, 300000); // 5 Minutes
+        }
+
+        // Reset timer on any interaction
+        window.onload = window.onmousemove = window.onmousedown = window.ontouchstart = window.onclick = window.onkeydown = startInactivityTimer;
+
+        function checkEnter(e) {
+            if (e.key === 'Enter') authenticate();
+        }
+
+        function lockTerminal() {
+            const overlay = document.getElementById('security-overlay');
+            overlay.style.display = 'flex';
+            document.getElementById('admin-pin').value = '';
+        }
+
+        // STRICT SECURITY: Lock instantly if tab is switched/hidden
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                lockTerminal();
+            }
+        });
+    </script>
+
+    <!-- SIDEBAR -->
+    <aside class="w-64 border-r border-white/10 flex flex-col justify-between bg-lokasi-dark/30">
+        <div>
+            <!-- Header -->
+            <div class="p-6 border-b border-white/10">
+                <h1 class="font-sans text-3xl font-bold tracking-tighter uppercase">LO<span
+                        class="-mr-[0.11em]">K</span>ASI <span class="text-lokasi-mist text-sm block">Admin CP</span>
+                </h1>
+            </div>
+
+            <!-- Nav -->
+            <nav class="p-4 space-y-2">
+                <a href="#" onclick="showSection('dashboard')" id="nav-dashboard"
+                    class="flex items-center gap-3 px-4 py-3 bg-white/5 rounded-sm font-mono text-xs uppercase text-white hover:bg-white/10 transition-colors border-l-2 border-white">
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" onclick="showSection('orders')" id="nav-orders"
+                    class="flex items-center gap-3 px-4 py-3 rounded-sm font-mono text-xs uppercase text-lokasi-mist hover:text-white hover:bg-white/5 transition-colors border-l-2 border-transparent">
+                    <span>Orders</span>
+                    <span
+                        class="ml-auto bg-lokasi-accent text-black text-[10px] w-5 h-5 flex items-center justify-center rounded-full font-bold"
+                        id="order-count">0</span>
+                </a>
+                <a href="#" onclick="showSection('inventory')" id="nav-inventory"
+                    class="flex items-center gap-3 px-4 py-3 rounded-sm font-mono text-xs uppercase text-lokasi-mist hover:text-white hover:bg-white/5 transition-colors border-l-2 border-transparent">
+                    <span>Inventory</span>
+                </a>
+                <a href="#"
+                    class="flex items-center gap-3 px-4 py-3 rounded-sm font-mono text-xs uppercase text-lokasi-mist hover:text-white hover:bg-white/5 transition-colors border-l-2 border-transparent">
+                    <span>Customers</span>
+                </a>
+            </nav>
+        </div>
+
+        <div class="p-6 border-t border-white/10">
+            <button onclick="lockTerminal()"
+                class="flex items-center gap-2 font-mono text-xs uppercase text-lokasi-mist hover:text-white mb-4 w-full text-left">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+                <span>Lock Terminal</span>
+            </button>
+            <a href="index.html"
+                class="flex items-center gap-2 font-mono text-xs uppercase text-lokasi-mist hover:text-white">
+                <span>&larr; Exit to Shop</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 overflow-y-auto">
+
+        <!-- DASHBOARD VIEW -->
+        <section id="section-dashboard" class="p-8 max-w-7xl mx-auto">
+            <h2 class="font-sans text-4xl font-bold mb-8 uppercase tracking-wide">Overview</h2>
+
+            <h3 class="font-sans text-xl font-bold mb-8 uppercase tracking-wide opacity-50">Business Overview</h3>
+
+            <div class="grid grid-cols-3 gap-6 mb-12">
+                <div class="bg-lokasi-dark border border-white/5 p-6 rounded-sm">
+                    <p class="font-sans text-4xl font-bold" id="stat-total-sales">R0.00</p>
+                </div>
+                <!-- Stats Card: Security -->
+                <div class="bg-lokasi-dark border border-white/10 p-6 rounded-sm">
+                    <div class="flex justify-between items-start mb-4">
+                        <p class="text-[10px] text-lokasi-mist uppercase tracking-widest">Security Health</p>
+                        <span class="p-1.5 bg-lokasi-success/20 text-lokasi-success rounded-full">
+                            <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z" />
+                            </svg>
+                        </span>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex justify-between text-xs">
+                            <span class="text-lokasi-mist">Status:</span>
+                            <span class="text-lokasi-success font-bold">STRICT_ACTIVE</span>
+                        </div>
+                        <div id="security-log"
+                            class="text-[9px] font-mono text-white/40 h-12 overflow-hidden leading-tight">
+                            <!-- Logs injected here -->
+                            SYSTEM_INITIALIZED...<br>
+                            FIREWALL_ENABLED...
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-lokasi-dark border border-white/5 p-6 rounded-sm">
+                    <p class="font-mono text-xs text-lokasi-mist uppercase mb-2">Pending Orders</p>
+                    <p class="font-sans text-4xl font-bold text-lokasi-warning" id="stat-pending-orders">0</p>
+                </div>
+                <div class="bg-lokasi-dark border border-white/5 p-6 rounded-sm">
+                    <p class="font-mono text-xs text-lokasi-mist uppercase mb-2">Total Customers</p>
+                    <p class="font-sans text-4xl font-bold" id="stat-total-customers">0</p>
+                </div>
+            </div>
+
+            <div class="bg-lokasi-dark border border-white/5 p-8 rounded-sm">
+                <h3
+                    class="font-mono text-sm uppercase tracking-widest text-white mb-6 flex justify-between items-center">
+                    <span>Recent Activity</span>
+                    <button class="text-[10px] underline text-lokasi-mist" onclick="showSection('orders')">VIEW ALL
+                        ORDERS</button>
+                </h3>
+                <div class="space-y-4" id="recent-activity-list">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ORDERS VIEW -->
+        <section id="section-orders" class="p-8 max-w-7xl mx-auto hidden">
+            <div class="flex justify-between items-end mb-8">
+                <h2 class="font-sans text-4xl font-bold uppercase tracking-wide">Orders</h2>
+                <div class="flex gap-2">
+                    <button
+                        class="px-4 py-2 border border-white/20 hover:bg-white hover:text-black font-mono text-xs uppercase transition-colors">Export
+                        CSV</button>
+                    <button
+                        class="px-4 py-2 border border-white/20 hover:bg-white hover:text-black font-mono text-xs uppercase transition-colors">Filters</button>
+                </div>
+            </div>
+
+            <div class="bg-lokasi-dark border border-white/5 overflow-hidden rounded-sm">
+                <table class="w-full text-left font-mono text-xs">
+                    <thead class="bg-white/5 text-lokasi-mist border-b border-white/5">
+                        <tr>
+                            <th class="p-4 font-normal uppercase tracking-wider">Order ID</th>
+                            <th class="p-4 font-normal uppercase tracking-wider">Customer</th>
+                            <th class="p-4 font-normal uppercase tracking-wider">Date</th>
+                            <th class="p-4 font-normal uppercase tracking-wider">Items</th>
+                            <th class="p-4 font-normal uppercase tracking-wider">Location</th>
+                            <th class="p-4 font-normal uppercase tracking-wider">Total</th>
+                            <th class="p-4 font-normal uppercase tracking-wider">Status</th>
+                            <th class="p-4 font-normal uppercase tracking-wider">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-white/5" id="orders-table-body">
+                        <!-- Populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- INVENTORY VIEW -->
+        <section id="section-inventory" class="p-8 max-w-7xl mx-auto hidden">
+            <div class="flex justify-between items-end mb-8">
+                <h2 class="font-sans text-4xl font-bold uppercase tracking-wide">Inventory</h2>
+                <div class="flex gap-2">
+                    <button onclick="openProductModal()"
+                        class="px-4 py-2 bg-white text-black hover:bg-neutral-200 font-mono text-xs uppercase transition-colors font-bold">+
+                        Add Product</button>
+                </div>
+            </div>
+
+            <div class="bg-lokasi-dark border border-white/5 overflow-hidden rounded-sm">
+                <table class="w-full text-left font-mono text-xs">
+                    <thead class="bg-white/5 text-lokasi-mist border-b border-white/5">
+                        <tr>
+                            <th class="p-4 font-normal uppercase tracking-wider">Image</th>
+                            <th class="p-4 font-normal uppercase tracking-wider">Product Name</th>
+                            <th class="p-4 font-normal uppercase tracking-wider">Category</th>
+                            <th class="p-4 font-normal uppercase tracking-wider">Price (ZAR)</th>
+                            <th class="p-4 font-normal uppercase tracking-wider">Tag</th>
+                            <th class="p-4 font-normal uppercase tracking-wider">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-white/5" id="inventory-table-body">
+                        <!-- Populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- PRODUCT MODAL -->
+        <div id="product-modal"
+            class="fixed inset-0 bg-black/80 z-50 hidden flex items-center justify-center p-4 backdrop-blur-sm">
+            <div class="bg-lokasi-dark border border-white/10 w-full max-w-lg p-8 rounded-sm shadow-2xl relative">
+                <h3 class="font-sans text-2xl font-bold uppercase mb-6" id="modal-title">Add Product</h3>
+
+                <input type="hidden" id="edit-product-id">
+
+                <div class="space-y-4 font-mono text-xs">
+                    <div>
+                        <label class="block text-lokasi-mist mb-1 uppercase">Product Name</label>
+                        <input type="text" id="p-name"
+                            class="w-full bg-white/5 border border-white/10 p-3 text-white outline-none focus:border-white/30 rounded-sm">
+                    </div>
+                    <div class="grid grid-cols-4 gap-4">
+                        <div>
+                            <label class="block text-lokasi-mist mb-1 uppercase">Price (R)</label>
+                            <input type="number" id="p-price"
+                                class="w-full bg-white/5 border border-white/10 p-3 text-white outline-none focus:border-white/30 rounded-sm">
+                        </div>
+                        <div>
+                            <label class="block text-lokasi-mist mb-1 uppercase">Sale (%)</label>
+                            <input type="number" id="p-sale" placeholder="0"
+                                class="w-full bg-white/5 border border-white/10 p-3 text-white outline-none focus:border-white/30 rounded-sm">
+                        </div>
+                        <div>
+                            <label class="block text-lokasi-mist mb-1 uppercase">Stock</label>
+                            <input type="number" id="p-stock" value="10"
+                                class="w-full bg-white/5 border border-white/10 p-3 text-white outline-none focus:border-white/30 rounded-sm">
+                        </div>
+                        <div>
+                            <label class="block text-lokasi-mist mb-1 uppercase">Cat</label>
+                            <select id="p-category"
+                                class="w-full bg-white/5 border border-white/10 p-3 text-white outline-none focus:border-white/30 rounded-sm text-[10px]">
+                                <option value="TOPS">TOPS</option>
+                                <option value="BOTTOMS">BOTTOMS</option>
+                                <option value="ACCESSORIES">ACCESSORIES</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-lokasi-mist mb-1 uppercase">Tag (Optional)</label>
+                            <input type="text" id="p-tag" placeholder="e.g. NEW, SOLD OUT"
+                                class="w-full bg-white/5 border border-white/10 p-3 text-white outline-none focus:border-white/30 rounded-sm">
+                        </div>
+                        <div>
+                            <label class="block text-lokasi-mist mb-1 uppercase">Gender</label>
+                            <select id="p-gender"
+                                class="w-full bg-white/5 border border-white/10 p-3 text-white outline-none focus:border-white/30 rounded-sm">
+                                <option value="UNISEX">UNISEX</option>
+                                <option value="MENS">MENS</option>
+                                <option value="WOMENS">WOMENS</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-lokasi-mist mb-1 uppercase">Image</label>
+                        <div class="flex gap-2">
+                            <input type="text" id="p-image" placeholder="Enter URL or Upload..."
+                                class="w-full bg-white/5 border border-white/10 p-3 text-white outline-none focus:border-white/30 rounded-sm font-mono leading-tight">
+                            <input type="file" id="p-image-file" class="hidden" accept="image/*"
+                                onchange="handleImageUpload(this)">
+                            <button onclick="document.getElementById('p-image-file').click()"
+                                class="bg-white/10 hover:bg-white/20 text-white px-4 border border-white/10 rounded-sm font-mono text-[10px] uppercase whitespace-nowrap transition-colors">
+                                Upload Photo
+                            </button>
+                        </div>
+                        <p class="text-[9px] text-lokasi-mist mt-1 font-mono uppercase">* Tip: Use small images (under
+                            1MB) for best performance.</p>
+                    </div>
+                    <div>
+                        <label class="block text-lokasi-mist mb-1 uppercase">Description</label>
+                        <textarea id="p-desc" rows="3"
+                            class="w-full bg-white/5 border border-white/10 p-3 text-white outline-none focus:border-white/30 rounded-sm"></textarea>
+                    </div>
+                </div>
+
+                <div class="flex justify-end gap-4 mt-8">
+                    <button onclick="closeProductModal()"
+                        class="px-6 py-3 border border-white/10 hover:bg-white/5 font-mono text-xs uppercase text-lokasi-mist hover:text-white transition-colors">Cancel</button>
+                    <button onclick="saveProduct()"
+                        class="px-6 py-3 bg-white text-black font-mono text-xs uppercase font-bold hover:bg-neutral-200 transition-colors">Save
+                        Product</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- LOGIC -->
+    <script src="data.js"></script>
+    <script>
+        // INIT
+        function initialize() {
+            loadData();
+            document.getElementById('order-count').innerText = window.orders.length;
+            renderDashboard();
+        }
+
+        initialize();
+
+        function showSection(id) {
+            // Toggle Sections
+            document.getElementById('section-dashboard').classList.add('hidden');
+            document.getElementById('section-orders').classList.add('hidden');
+            document.getElementById('section-' + id).classList.remove('hidden');
+
+            // Toggle Nav Active State
+            ['dashboard', 'orders', 'inventory'].forEach(nav => {
+                const el = document.getElementById('nav-' + nav);
+                el.classList.remove('bg-white/5', 'text-white', 'border-white');
+                el.classList.add('text-lokasi-mist', 'border-transparent');
+            });
+
+            const activeNav = document.getElementById('nav-' + id);
+            activeNav.classList.add('bg-white/5', 'text-white', 'border-white');
+            activeNav.classList.remove('text-lokasi-mist', 'border-transparent');
+
+            if (id === 'orders') renderOrders();
+            if (id === 'inventory') renderInventory();
+            if (id === 'dashboard') renderDashboard();
+        }
+
+        function renderInventory() {
+            loadData();
+            const tbody = document.getElementById('inventory-table-body');
+            tbody.innerHTML = window.products.map(p => `
+                <tr class="hover:bg-white/5 transition-colors group">
+                    <td class="p-4">
+                        <div class="w-12 h-16 bg-white/5 overflow-hidden rounded-sm">
+                            <img src="${p.image}" class="w-full h-full object-cover">
+                        </div>
+                    </td>
+                    <td class="p-4 font-bold text-white uppercase">${p.name}</td>
+                    <td class="p-4 text-lokasi-mist">${p.category}</td>
+                    <td class="p-4 font-mono font-bold">
+                        ${p.discountPrice
+                    ? `<span class="line-through text-lokasi-mist text-[10px] mr-2">R${p.price.toFixed(2)}</span><br><span class="text-white">R${p.discountPrice.toFixed(2)}</span>`
+                    : `R${p.price.toFixed(2)}`}
+                    </td>
+                    <td class="p-4"><span class="text-[10px] ${p.stock <= 5 ? 'bg-red-500/20 text-red-500' : 'bg-white/10 text-white'} px-2 py-1 rounded">${p.stock}</span></td>
+                    <td class="p-4"><span class="text-[10px] bg-white/10 px-2 py-1 rounded text-white">${p.tag || '-'}</span></td>
+                    <td class="p-4">
+                        <div class="flex gap-4">
+                            <button onclick="editProduct(${p.id})" class="text-lokasi-mist hover:text-white underline text-[10px] uppercase">Edit</button>
+                            <button onclick="deleteProduct(${p.id})" class="text-lokasi-danger hover:text-red-400 underline text-[10px] uppercase">Delete</button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // --- PRODUCT CRUD ---
+
+        function openProductModal() {
+            document.getElementById('product-modal').classList.remove('hidden');
+            document.getElementById('modal-title').innerText = 'Add Product';
+
+            // Clear Form
+            document.getElementById('edit-product-id').value = '';
+            document.getElementById('p-name').value = '';
+            document.getElementById('p-price').value = '';
+            document.getElementById('p-sale').value = '';
+            document.getElementById('p-stock').value = '10';
+            document.getElementById('p-category').value = 'TOPS';
+            document.getElementById('p-tag').value = '';
+            document.getElementById('p-gender').value = 'UNISEX';
+            document.getElementById('p-image').value = '';
+            document.getElementById('p-desc').value = '';
+        }
+
+        function closeProductModal() {
+            document.getElementById('product-modal').classList.add('hidden');
+        }
+
+        function editProduct(id) {
+            const p = window.products.find(x => x.id === id);
+            if (!p) return;
+
+            openProductModal();
+            document.getElementById('modal-title').innerText = 'Edit Product';
+            document.getElementById('edit-product-id').value = p.id;
+
+            document.getElementById('p-name').value = p.name;
+            document.getElementById('p-price').value = p.price;
+            document.getElementById('p-sale').value = p.salePercentage || '';
+            document.getElementById('p-stock').value = p.stock || 0;
+            document.getElementById('p-category').value = p.category;
+            document.getElementById('p-tag').value = p.tag;
+            document.getElementById('p-gender').value = p.gender;
+            document.getElementById('p-image').value = p.image;
+            document.getElementById('p-desc').value = p.desc;
+        }
+
+        function handleImageUpload(input) {
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
+
+                // Simple size check (warn if > 1MB)
+                if (file.size > 1024 * 1024) {
+                    alert("⚠️ Warning: This image is large (" + (file.size / 1024 / 1024).toFixed(1) + "MB). It might slow down your site or fail to save. Try to use an image under 1MB.");
+                }
+
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById('p-image').value = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function saveProduct() {
+            const id = document.getElementById('edit-product-id').value;
+            const name = document.getElementById('p-name').value;
+            const price = parseFloat(document.getElementById('p-price').value);
+            const sale = parseFloat(document.getElementById('p-sale').value) || 0;
+            const stock = parseInt(document.getElementById('p-stock').value) || 0;
+            const category = document.getElementById('p-category').value;
+            const tag = document.getElementById('p-tag').value;
+            const gender = document.getElementById('p-gender').value;
+            const image = document.getElementById('p-image').value;
+            const desc = document.getElementById('p-desc').value;
+
+            if (!name || isNaN(price)) {
+                alert("Please enter valid name and price");
+                return;
+            }
+
+            const discountPrice = sale > 0 ? (price - (price * (sale / 100))) : null;
+            const salePercentage = sale > 0 ? sale : null;
+
+            if (id) {
+                // Edit
+                const index = window.products.findIndex(p => p.id == id);
+                if (index !== -1) {
+                    window.products[index] = { ...window.products[index], name, price, stock, category, tag, gender, image, desc, discountPrice, salePercentage };
+                }
+            } else {
+                // Add
+                const newId = window.products.length > 0 ? Math.max(...window.products.map(p => p.id)) + 1 : 1;
+                window.products.push({ id: newId, name, price, stock, category, gender, tag, image, desc, discountPrice, salePercentage });
+            }
+
+            // Save and Refresh
+            saveData();
+            renderInventory();
+            closeProductModal();
+        }
+
+        function deleteProduct(id) {
+            if (confirm('Are you sure you want to delete this product?')) {
+                window.products = window.products.filter(p => p.id !== id);
+                saveData();
+                renderInventory();
+            }
+        }
+
+        function getStatusColor(status) {
+            if (status === 'DELIVERED') return 'text-lokasi-success border-lokasi-success';
+            if (status === 'SHIPPED') return 'text-blue-400 border-blue-400';
+            if (status === 'PROCESSING') return 'text-lokasi-warning border-lokasi-warning';
+            if (status === 'PENDING') return 'text-lokasi-mist border-lokasi-mist';
+            return 'text-white border-white';
+        }
+
+        function renderOrders() {
+            loadData();
+            const tbody = document.getElementById('orders-table-body');
+            tbody.innerHTML = window.orders.map(order => `
+                <tr class="hover:bg-white/5 transition-colors">
+                    <td class="p-4 font-bold text-white">${order.id}</td>
+                    <td class="p-4">
+                        <div class="font-bold text-white">${order.customer}</div>
+                        <div class="text-lokasi-mist text-[10px]">${order.email}</div>
+                    </td>
+                    <td class="p-4 text-lokasi-mist">${order.date}</td>
+                    <td class="p-4">
+                        <div class="truncate max-w-[200px]" title="${order.items.join(', ')}">${order.items.join(', ')}</div>
+                    </td>
+                    <td class="p-4 text-lokasi-mist">${order.location}</td>
+                    <td class="p-4 font-bold text-white">R${order.total.toFixed(2)}</td>
+                    <td class="p-4">
+                        <span class="border px-2 py-1 rounded-sm text-[10px] uppercase font-bold ${getStatusColor(order.status)}">${order.status}</span>
+                    </td>
+                    <td class="p-4">
+                        <button class="text-white hover:text-lokasi-mist underline text-[10px] uppercase">Details</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function renderDashboard() {
+            loadData();
+            // Update Stats
+            const totalSales = window.orders.reduce((acc, o) => acc + o.total, 0);
+            const pendingOrders = window.orders.filter(o => o.status === 'PENDING' || o.status === 'PROCESSING').length;
+            const uniqueCustomers = new Set(window.orders.map(o => o.email)).size;
+
+            document.getElementById('stat-total-sales').innerText = "R" + totalSales.toFixed(2);
+            document.getElementById('stat-pending-orders').innerText = pendingOrders;
+            document.getElementById('stat-total-customers').innerText = uniqueCustomers;
+            document.getElementById('order-count').innerText = window.orders.length;
+
+            const list = document.getElementById('recent-activity-list');
+            list.innerHTML = window.orders.slice(0, 5).map(order => `
+                <div class="flex items-center justify-between p-4 bg-white/5 rounded-sm border border-white/5">
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 bg-lokasi-black flex items-center justify-center rounded-full border border-white/10 font-bold text-xs text-white">
+                            ${order.customer.charAt(0)}
+                        </div>
+                        <div>
+                            <p class="font-sans font-bold uppercase text-sm text-white">New Order #${order.id}</p>
+                            <p class="font-mono text-[10px] text-lokasi-mist uppercase">${order.customer} purchased ${order.items.length} items</p>
+                        </div>
+                    </div>
+                    <span class="font-mono text-[10px] text-lokasi-mist">${order.date}</span>
+                </div>
+             `).join('');
+        }
+
+        // Initial Render
+        renderDashboard();
+    </script>
+</body>
+
+</html>
