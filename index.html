@@ -1,0 +1,1705 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOKASI | Official Store</title>
+    <!-- IRONCLAD SECURITY: Content Security Policy -->
+    <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self' https://cdn.tailwindcss.com https://fonts.googleapis.com https://fonts.gstatic.com https://js.paystack.co; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://js.paystack.co; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com;">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Caveat:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="manifest" href="manifest.json">
+
+    <!-- SEO / SOCIAL SHARING -->
+    <meta property="og:title" content="LOKASI | Township Luxury">
+    <meta property="og:description"
+        content="Respect The Hustle. Premium streetwear born in the streets of Johannesburg.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1506157788151-7fab5018265f?q=80&w=1200">
+    <meta property="og:url" content="https://lokasi.co.za">
+    <meta name="twitter:card" content="summary_large_image">
+    <!-- PAYSTACK INTEGRATION -->
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        lokasi: {
+                            black: '#050505',
+                            dark: '#121212',
+                            grey: '#2a2a2a',
+                            mist: '#a3a3a3',
+                            accent: '#e5e5e5' // Using a concrete/dust color for accent
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Oswald', 'sans-serif'],
+                        mono: ['Space Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #050505;
+            color: white;
+            /* Standard cursor for better usability */
+        }
+
+        /* BRUTALIST LUXURY TYPOGRAPHY */
+        ::selection {
+            background: #FF3B30;
+            /* Red selection for contrast */
+            color: white;
+        }
+
+        .hero-title {
+            font-size: 22vw;
+            line-height: 0.75;
+            letter-spacing: -0.09em;
+            transform: scaleY(1.2);
+            /* Tall font stretch */
+            mix-blend-mode: difference;
+            pointer-events: none;
+        }
+
+        /* Modern Scrollbar - Minimal */
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #000;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #444;
+            border-radius: 2px;
+        }
+
+        /* Marquee Animation */
+        @keyframes marquee {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .animate-marquee {
+            animation: marquee 30s linear infinite;
+        }
+
+        /* Utility */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* TECH SPECS STYLES */
+        .tech-stat-bar {
+            height: 2px;
+            background: rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tech-stat-fill {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background: white;
+            transform: translateX(-100%);
+            transition: transform 1.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .product-card:hover .tech-stat-fill {
+            transform: translateX(0);
+        }
+
+        .hovering .cursor-outline {
+            transform: scale(1.5);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: transparent;
+        }
+
+        /* LOOKBOOK SCROLL */
+        .lookbook-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .lookbook-container {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+
+<body class="bg-lokasi-black text-white antialiased overflow-hidden selection:bg-white selection:text-black"
+    onload="removeLoader()">
+    <!-- VISUAL FX -->
+    <div class="noise-overlay"></div>
+    <div class="cursor-dot hidden md:block"></div>
+    <div class="cursor-outline hidden md:block"></div>
+
+    <!-- LOADING INTRO -->
+    <div id="loader"
+        class="fixed inset-0 z-[100] bg-black flex flex-col justify-center items-center transition-opacity duration-1000">
+        <img src="logo_symbol.png" alt="LOKASI Symbol" class="w-24 h-auto mb-8 animate-pulse grayscale brightness-125">
+        <div class="w-32 h-[1px] bg-white/20 overflow-hidden">
+            <div class="h-full bg-white animate-progress w-full origin-left"></div>
+        </div>
+        <p class="font-mono text-[9px] text-lokasi-mist mt-4 tracking-[0.3em] uppercase opacity-50">EST. 2026</p>
+    </div>
+
+    <!-- TICKER TAPE -->
+    <div
+        class="fixed top-0 w-full z-[60] bg-lokasi-accent text-black font-mono text-[9px] font-bold tracking-widest py-1 overflow-hidden pointer-events-none">
+        <div class="whitespace-nowrap animate-marquee inline-block">
+            LIMITED DROP — NO RESTOCKS — WORLDWIDE SHIPPING AVAILABLE — RESPECT THE HUSTLE — LOKASI OFFICIAL — KASI
+            LUXURY —
+            LIMITED DROP — NO RESTOCKS — WORLDWIDE SHIPPING AVAILABLE — RESPECT THE HUSTLE — LOKASI OFFICIAL — KASI
+            LUXURY —
+        </div>
+    </div>
+
+    <!-- NAVIGATION (Smaller, Sleeker) -->
+    <nav
+        class="fixed top-[25px] w-full z-50 flex justify-between items-center px-6 py-4 border-b border-white/5 bg-lokasi-black/95 backdrop-blur-md">
+        <!-- Logo (Pure SVG Implementation for perfect clarity) -->
+        <a href="#" onclick="showPage('home')" class="cursor-pointer group flex items-center gap-3">
+            <img src="logo_symbol.png" alt="LOKASI"
+                class="h-8 w-auto grayscale brightness-125 group-hover:scale-110 transition-transform">
+            <span class="sr-only">LOKASI</span>
+        </a>
+
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex space-x-8 text-xs font-mono tracking-widest text-lokasi-mist">
+            <a href="#" onclick="showPage('shop')" class="hover:text-white transition-colors">COLLECTIONS</a>
+            <a href="#" onclick="showPage('archive')" class="hover:text-white transition-colors">ARCHIVE</a>
+            <a href="#" onclick="showPage('about')" class="hover:text-white transition-colors">ABOUT</a>
+        </div>
+
+        <div class="flex items-center gap-6">
+            <!-- Mobile Menu Button -->
+            <button onclick="toggleMobileMenu()" class="md:hidden text-white hover:text-lokasi-mist">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+
+            <button
+                class="hidden md:block hover:text-lokasi-mist transition-colors text-xs font-mono tracking-widest">ACCOUNT</button>
+            <button onclick="toggleCart()" class="text-white hover:text-lokasi-mist relative">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" />
+                    <path d="M3 6h18" />
+                    <path d="M16 10a4 4 0 0 1-8 0" />
+                </svg>
+                <div id="cart-count"
+                    class="absolute -top-1 -right-1 w-4 h-4 bg-lokasi-accent text-black font-bold text-[10px] flex items-center justify-center rounded-full hidden">
+                    0</div>
+            </button>
+        </div>
+    </nav>
+
+    <!-- MOBILE MENU OVERLAY -->
+    <div id="mobile-menu"
+        class="fixed inset-0 bg-lokasi-black z-[60] transform -translate-x-full transition-transform duration-300 md:hidden flex flex-col justify-center items-center space-y-8">
+        <button onclick="toggleMobileMenu()" class="absolute top-6 right-6 text-white hover:text-lokasi-mist">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+        <a href="#" onclick="showPage('home'); toggleMobileMenu()"
+            class="text-3xl font-sans font-bold uppercase tracking-tighter text-white hover:text-lokasi-accent transition-colors">Home</a>
+        <a href="#" onclick="showPage('shop'); toggleMobileMenu()"
+            class="text-3xl font-sans font-bold uppercase tracking-tighter text-white hover:text-lokasi-accent transition-colors">Collections</a>
+        <a href="#" onclick="showPage('archive'); toggleMobileMenu()"
+            class="text-3xl font-sans font-bold uppercase tracking-tighter text-white hover:text-lokasi-accent transition-colors">Archive</a>
+        <a href="#" onclick="showPage('about'); toggleMobileMenu()"
+            class="text-3xl font-sans font-bold uppercase tracking-tighter text-white hover:text-lokasi-accent transition-colors">About</a>
+        <a href="#" onclick="showPage('shipping'); toggleMobileMenu()"
+            class="text-xl font-mono text-lokasi-mist uppercase tracking-widest mt-8">Support</a>
+    </div>
+
+    <!-- CONTENT CONTAINER -->
+    <main id="app-content" class="pt-20">
+        <!-- Pages will be injected here via JS -->
+    </main>
+
+    <!-- OVERLAYS -->
+
+    <!-- CART DRAWER -->
+    <div id="cart-backdrop" onclick="toggleCart()"
+        class="fixed inset-0 bg-black/80 z-[60] hidden opacity-0 transition-opacity duration-300 backdrop-blur-sm">
+    </div>
+    <div id="cart-drawer"
+        class="fixed top-0 right-0 h-full w-full md:w-[450px] bg-lokasi-black z-[70] transform translate-x-full transition-transform duration-300 border-l border-white/10 flex flex-col">
+        <div class="p-6 border-b border-white/10 flex justify-between items-center bg-lokasi-black z-10">
+            <h2 class="font-sans text-2xl font-bold uppercase tracking-tighter">Shopping Bag</h2>
+            <button onclick="toggleCart()" class="text-white hover:text-lokasi-mist">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+
+        <div id="cart-items" class="flex-1 overflow-y-auto p-6 space-y-6">
+            <!-- Items injected by JS -->
+            <div class="h-full flex flex-col items-center justify-center text-lokasi-mist space-y-4">
+                <p>YOUR BAG IS EMPTY</p>
+                <button onclick="toggleCart()" class="underline text-white">CONTINUE SHOPPING</button>
+            </div>
+        </div>
+
+        <div class="p-6 border-t border-white/10 bg-lokasi-black space-y-4">
+            <div class="flex justify-between font-mono text-sm">
+                <span>SUBTOTAL</span>
+                <span id="cart-total">R0.00</span>
+            </div>
+            <p class="font-mono text-[10px] text-lokasi-mist text-center">SHIPPING CALCULATED AT CHECKOUT</p>
+            <button onclick="checkout()"
+                class="w-full bg-white text-black font-sans font-bold text-lg py-4 tracking-wide hover:bg-neutral-200 transition-colors uppercase">CHECKOUT</button>
+
+            <!-- Safe Payment Icons (Visual Trust) -->
+            <div class="flex justify-center gap-4 pt-2 opacity-50 grayscale">
+                <div class="h-4 w-8 bg-white/20 rounded"></div>
+                <div class="h-4 w-8 bg-white/20 rounded"></div>
+                <div class="h-4 w-8 bg-white/20 rounded"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CHECKOUT MODAL (PREMIUM DESIGN) -->
+    <div id="checkout-modal" class="fixed inset-0 bg-lokasi-black z-[80] hidden overflow-y-auto">
+        <div class="max-w-7xl mx-auto px-6 py-12 lg:min-h-screen flex flex-col">
+            <!-- Header -->
+            <div class="flex justify-between items-center mb-8 border-b border-lokasi-grey/20 pb-6">
+                <div class="flex items-center gap-4">
+                    <h1 class="text-2xl font-sans font-bold uppercase tracking-tighter">LOKASI <span
+                            class="text-lokasi-mist font-normal">/ CHECKOUT</span></h1>
+                </div>
+                <button onclick="closeCheckout()"
+                    class="text-lokasi-mist hover:text-white uppercase font-mono text-[10px] tracking-widest flex items-center gap-2">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                    CLOSE
+                </button>
+            </div>
+
+            <div class="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24">
+
+                <!-- LEFT: FORMS -->
+                <div class="lg:col-span-7 space-y-8">
+
+                    <!-- Breadcrumbs -->
+                    <div class="flex gap-2 text-[10px] font-mono tracking-widest uppercase text-lokasi-mist mb-8">
+                        <span class="text-white">Information</span>
+                        <span>/</span>
+                        <span>Shipping</span>
+                        <span>/</span>
+                        <span>Payment</span>
+                    </div>
+
+                    <!-- Express Checkout -->
+                    <div class="space-y-4">
+                        <p class="text-[10px] font-mono uppercase text-lokasi-mist text-center">Express Checkout</p>
+                        <div class="grid grid-cols-2 gap-4">
+                            <button
+                                class="bg-[#5A31F4] text-white h-12 rounded flex items-center justify-center font-sans font-bold italic tracking-tighter">Shop
+                                Pay</button>
+                            <button
+                                class="bg-white text-black h-12 rounded flex items-center justify-center font-sans font-bold">GPay</button>
+                        </div>
+                        <div class="relative flex items-center py-4">
+                            <div class="flex-grow border-t border-white/10"></div>
+                            <span class="flex-shrink-0 mx-4 text-[10px] text-lokasi-mist font-mono uppercase">OR
+                                CONTINUE BELOW</span>
+                            <div class="flex-grow border-t border-white/10"></div>
+                        </div>
+                    </div>
+
+                    <!-- 1. Contact -->
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-end">
+                            <h3 class="text-white uppercase font-bold text-lg tracking-tight">Contact</h3>
+                            <a href="#" class="text-[10px] text-lokasi-mist underline">Log in</a>
+                        </div>
+                        <input type="email" placeholder="Email Address"
+                            class="w-full bg-white/5 border border-transparent focus:border-white/20 p-4 text-sm outline-none text-white transition-all placeholder-white/30 rounded-sm" />
+                        <label class="flex items-center gap-3 text-xs text-lokasi-mist cursor-pointer">
+                            <input type="checkbox"
+                                class="accent-white w-4 h-4 bg-transparent border-white/20 rounded-sm" checked />
+                            Email me with news and offers
+                        </label>
+                    </div>
+
+                    <!-- 2. Shipping -->
+                    <div class="space-y-4 pt-4">
+                        <h3 class="text-white uppercase font-bold text-lg tracking-tight">Shipping Address</h3>
+                        <div class="space-y-3">
+                            <input type="text" placeholder="Country / Region" value="South Africa" readonly
+                                class="w-full bg-white/5 border border-transparent p-4 text-sm outline-none text-white/50 cursor-not-allowed rounded-sm" />
+                            <div class="grid grid-cols-2 gap-3">
+                                <input type="text" placeholder="First Name"
+                                    class="w-full bg-white/5 border border-transparent focus:border-white/20 p-4 text-sm outline-none text-white transition-all placeholder-white/30 rounded-sm" />
+                                <input type="text" placeholder="Last Name"
+                                    class="w-full bg-white/5 border border-transparent focus:border-white/20 p-4 text-sm outline-none text-white transition-all placeholder-white/30 rounded-sm" />
+                            </div>
+                            <input type="text" placeholder="Address"
+                                class="w-full bg-white/5 border border-transparent focus:border-white/20 p-4 text-sm outline-none text-white transition-all placeholder-white/30 rounded-sm" />
+                            <input type="text" placeholder="Apartment, suite, etc. (optional)"
+                                class="w-full bg-white/5 border border-transparent focus:border-white/20 p-4 text-sm outline-none text-white transition-all placeholder-white/30 rounded-sm" />
+                            <div class="grid grid-cols-2 gap-3">
+                                <input type="text" placeholder="City"
+                                    class="w-full bg-white/5 border border-transparent focus:border-white/20 p-4 text-sm outline-none text-white transition-all placeholder-white/30 rounded-sm" />
+                                <input type="text" placeholder="Postal Code"
+                                    class="w-full bg-white/5 border border-transparent focus:border-white/20 p-4 text-sm outline-none text-white transition-all placeholder-white/30 rounded-sm" />
+                            </div>
+                            <!-- SECURITY HONEYPOT (Invisible to humans, traps bots) -->
+                            <div class="hidden" aria-hidden="true">
+                                <input type="text" name="b_name" id="b_name" tabindex="-1" value="">
+                                <input type="text" name="b_email" id="b_email" tabindex="-1" value="">
+                            </div>
+
+                            <input type="text" placeholder="Phone Number (Required for Courier)" id="customer-phone"
+                                class="w-full bg-white/5 border border-transparent focus:border-white/20 p-4 text-sm outline-none text-white transition-all placeholder-white/30 rounded-sm" />
+                        </div>
+                    </div>
+
+                    <!-- 3. Payment -->
+                    <div class="space-y-4 pt-8">
+                        <h3 class="text-white uppercase font-bold text-lg tracking-tight">Payment</h3>
+                        <p class="text-xs text-lokasi-mist pb-2">All transactions are secure and encrypted.</p>
+                        <div class="border border-white/10 rounded-sm overflow-hidden bg-white/5">
+                            <!-- Method 1: Card -->
+                            <div onclick="selectPaymentMethod('card')"
+                                class="p-4 flex justify-between items-center cursor-pointer hover:bg-white/5 transition-colors border-b border-white/5"
+                                id="pay-card-header">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-4 h-4 rounded-full border border-white/30 flex items-center justify-center"
+                                        id="card-radio-outer">
+                                        <div class="w-2 h-2 rounded-full bg-white" id="card-radio-inner"></div>
+                                    </div>
+                                    <span class="text-sm font-bold uppercase tracking-tight">Credit/Debit Card</span>
+                                </div>
+                                <div class="flex gap-2 opacity-50 grayscale">
+                                    <div class="w-6 h-4 bg-white rounded-sm"></div>
+                                    <div class="w-6 h-4 bg-white rounded-sm"></div>
+                                </div>
+                            </div>
+
+                            <div id="card-details-form" class="p-4 space-y-3 bg-black/40 border-b border-white/5">
+                                <input type="tel" inputmode="numeric" pattern="[0-9]*" placeholder="Card Number"
+                                    oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                                    onkeypress="return (event.charCode >= 48 && event.charCode <= 57)"
+                                    class="w-full bg-lokasi-black/50 border border-white/10 focus:border-white/30 p-3 text-sm outline-none text-white transition-all placeholder-white/30 rounded-sm" />
+                                <div class="grid grid-cols-2 gap-3">
+                                    <input type="text" placeholder="Expiration (MM/YY)"
+                                        class="w-full bg-lokasi-black/50 border border-white/10 focus:border-white/30 p-3 text-sm outline-none text-white transition-all placeholder-white/30 rounded-sm" />
+                                    <input type="tel" inputmode="numeric" pattern="[0-9]*" maxlength="4"
+                                        placeholder="CVC" oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                                        onkeypress="return (event.charCode >= 48 && event.charCode <= 57)"
+                                        class="w-full bg-lokasi-black/50 border border-white/10 focus:border-white/30 p-3 text-sm outline-none text-white transition-all placeholder-white/30 rounded-sm" />
+                                </div>
+                                <input type="text" placeholder="Name on Card"
+                                    class="w-full bg-lokasi-black/50 border border-white/10 focus:border-white/30 p-3 text-sm outline-none text-white transition-all placeholder-white/30 rounded-sm" />
+                            </div>
+
+                            <!-- Method 2: Bank Transfer -->
+                            <div onclick="selectPaymentMethod('bank')"
+                                class="p-4 flex justify-between items-center cursor-pointer hover:bg-white/5 transition-colors"
+                                id="pay-bank-header">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-4 h-4 rounded-full border border-white/30 flex items-center justify-center"
+                                        id="bank-radio-outer">
+                                        <div class="w-2 h-2 rounded-full bg-white hidden" id="bank-radio-inner"></div>
+                                    </div>
+                                    <span class="text-sm font-bold uppercase tracking-tight">Direct Bank Transfer
+                                        (EFT)</span>
+                                </div>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" class="opacity-50">
+                                    <rect x="2" y="5" width="20" height="14" rx="2" />
+                                    <line x1="2" y1="10" x2="22" y2="10" />
+                                </svg>
+                            </div>
+
+                            <div id="bank-details-info"
+                                class="p-6 space-y-6 bg-[#1a1a1a] border border-white/10 hidden animate__animated animate__fadeIn">
+                                <div class="flex items-center justify-between border-b border-white/5 pb-4">
+                                    <p class="font-mono text-[10px] font-bold uppercase tracking-widest text-white/40">
+                                        Official Banking Details</p>
+                                    <img src="logo.png" class="h-3 w-auto opacity-50" />
+                                </div>
+
+                                <div class="grid grid-cols-1 gap-y-6 font-mono text-xs uppercase">
+                                    <div>
+                                        <div class="text-[9px] text-lokasi-mist mb-1">Company Account</div>
+                                        <div class="font-bold text-white tracking-wider">LOKASI PROJECTS (PTY) LTD</div>
+                                    </div>
+
+                                    <div class="grid grid-cols-2 gap-4">
+                                        <div>
+                                            <div class="text-[9px] text-lokasi-mist mb-1">Bank</div>
+                                            <div class="font-bold text-white">FNB</div>
+                                        </div>
+                                        <div>
+                                            <div class="text-[9px] text-lokasi-mist mb-1">Branch Code</div>
+                                            <div class="font-bold text-white">250655</div>
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        class="bg-black p-4 border border-white/10 relative group cursor-pointer hover:border-lokasi-accent/50 transition-colors">
+                                        <div class="text-[9px] text-lokasi-accent mb-1">Account Number</div>
+                                        <div class="font-sans text-xl font-bold text-white tracking-widest">62900012345
+                                        </div>
+                                        <div
+                                            class="absolute top-4 right-4 text-[9px] text-white/20 group-hover:text-white transition-colors">
+                                            COPY</div>
+                                    </div>
+
+                                    <div class="bg-lokasi-accent text-black p-4">
+                                        <div class="text-[9px] font-bold mb-1 opacity-60">Payment Reference</div>
+                                        <div class="font-sans text-lg font-bold tracking-widest" id="bank-ref-display">
+                                            YOUR_ORDER_ID</div>
+                                        <div class="text-[8px] mt-1 opacity-60">*IMPORTANT: Use this as your reference.
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="font-mono text-[9px] text-lokasi-mist leading-relaxed text-center">
+                                    Please send proof of payment to <span
+                                        class="text-white border-b border-lokasi-mist">hustle@lokasi.co.za</span>.
+                                    <br> Your order will be packed once funds reflect.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button id="pay-now-btn" onclick="processOrder()"
+                        class="w-full bg-white text-black font-sans font-bold text-lg py-5 tracking-wide hover:bg-neutral-200 transition-colors uppercase mt-4">PAY
+                        NOW</button>
+                    <div class="flex justify-center gap-6 text-[10px] text-lokasi-mist underline pt-4 pb-12">
+                        <a href="#">Refund Policy</a>
+                        <a href="#">Shipping Policy</a>
+                        <a href="#">Privacy Policy</a>
+                    </div>
+
+                </div>
+
+                <!-- RIGHT: ORDER SUMMARY (Sticky) -->
+                <div class="lg:col-span-5 relative hidden lg:block">
+                    <div class="sticky top-12 bg-white/5 p-8 rounded-sm space-y-6 border border-white/5">
+                        <h3
+                            class="text-white uppercase font-bold text-sm tracking-widest border-b border-white/10 pb-4">
+                            In Your Bag</h3>
+
+                        <div id="checkout-items" class="space-y-4 max-h-[50vh] overflow-y-auto pr-2 custom-scrollbar">
+                            <!-- Items populated by JS -->
+                        </div>
+
+                        <!-- TOTALS CONTAINER -->
+                        <div class="space-y-3 border-t border-white/10 pt-4 font-mono text-xs">
+                            <!-- Will be injected by JS -->
+                            <div class="flex justify-between text-lokasi-mist">
+                                <span>Subtotal</span>
+                                <span id="checkout-subtotal">R0.00</span>
+                            </div>
+                            <div
+                                class="flex justify-between text-xl text-white pt-4 border-t border-white/10 font-bold font-sans">
+                                <span>Total</span>
+                                <span id="checkout-total">R0.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- NEWSLETTER MODAL (THE BLACKLIST) -->
+    <div id="newsletter-modal"
+        class="fixed inset-0 bg-black/95 z-[110] hidden flex items-center justify-center p-6 text-center backdrop-blur-md">
+        <div
+            class="max-w-xl w-full space-y-8 animate__animated animate__fadeInUp border border-white/10 p-12 bg-lokasi-black relative overflow-hidden">
+            <!-- Background Glow -->
+            <div class="absolute -top-24 -right-24 w-48 h-48 bg-white/5 blur-[100px] rounded-full"></div>
+
+            <button onclick="closeNewsletter()"
+                class="absolute top-6 right-6 text-lokasi-mist hover:text-white transition-colors">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+
+            <div class="space-y-4">
+                <p class="font-mono text-[10px] tracking-[0.4em] uppercase text-lokasi-mist">Restricted Access</p>
+                <h2 class="text-5xl md:text-7xl font-sans font-bold uppercase tracking-tighter leading-none">
+                    The<br>Blacklist</h2>
+                <p
+                    class="font-mono text-xs text-lokasi-mist leading-relaxed uppercase tracking-widest max-w-xs mx-auto">
+                    Join the inner circle. Get early access to THE NEXT DROP and member-only updates.</p>
+            </div>
+
+            <div class="space-y-4 pt-4">
+                <input type="email" id="news-email" placeholder="ENTER EMAIL ADDRESS"
+                    class="w-full bg-white/5 border border-white/10 p-4 text-center font-mono text-xs outline-none focus:border-white/40 transition-all uppercase placeholder-white/20">
+                <button onclick="handleSubscribe()"
+                    class="w-full bg-white text-black font-sans font-bold py-4 tracking-[0.2em] hover:bg-neutral-200 transition-colors uppercase">Secure
+                    Access</button>
+            </div>
+
+            <p class="text-[8px] font-mono text-white/20 uppercase tracking-[0.2em]">© 2026 LOKASI PROJECTS. NO SPAM.
+                JUST HYPE.</p>
+        </div>
+    </div>
+
+    <!-- SUCCESS MODAL -->
+    <div id="success-modal"
+        class="fixed inset-0 bg-lokasi-black z-[100] hidden flex items-center justify-center p-6 text-center">
+        <div class="max-w-md space-y-8 animate__animated animate__fadeIn">
+            <div class="flex justify-center">
+                <div class="w-16 h-16 bg-lokasi-accent text-black flex items-center justify-center rounded-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                </div>
+            </div>
+            <div class="space-y-4">
+                <h2 class="text-4xl font-sans font-bold uppercase tracking-tighter">Order Received</h2>
+                <p class="font-mono text-xs text-lokasi-mist leading-relaxed uppercase tracking-widest mb-2"
+                    id="success-message">A confirmation has been sent to your email.</p>
+                <div class="font-mono text-[10px] text-white/50 bg-white/5 p-4 border border-white/5 space-y-4">
+                    <p class="text-white">MESSAGE SENT:</p>
+                    <p>"Welcome to the LOKASI family. Your order is now being processed by our team in Johannesburg.
+                        We'll update you as soon as the uniform is dispatched. Respect the hustle."</p>
+                </div>
+            </div>
+            <button onclick="location.reload()"
+                class="w-full border border-white py-4 font-mono text-xs uppercase tracking-widest hover:bg-white hover:text-black transition-all">Back
+                to Store</button>
+        </div>
+    </div>
+
+    <!-- HYPE TICKER (Global Demand) -->
+    <div
+        class="w-full bg-white/5 border-y border-white/5 py-3 overflow-hidden font-mono text-[8px] tracking-[0.3em] uppercase text-lokasi-mist">
+        <div class="whitespace-nowrap animate-marquee inline-block">
+            LKS-7012 SECURED IN JOHANNESBURG — LKS-0921 SECURED IN LONDON — LKS-4412 SECURED IN TOKYO — LKS-1192 SECURED
+            IN NEW YORK — LKS-8823 SECURED IN PARIS — LKS-7012 SECURED IN JOHANNESBURG — LKS-0921 SECURED IN LONDON —
+            LKS-4412 SECURED IN TOKYO — LKS-1192 SECURED IN NEW YORK — LKS-8823 SECURED IN PARIS —
+        </div>
+    </div>
+
+    <!-- PROFESSIONAL FOOTER -->
+    <footer class="px-8 py-20 border-t border-white/5 bg-lokasi-black relative z-10 font-mono text-xs text-lokasi-mist">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
+            <!-- Brand -->
+            <div class="space-y-6">
+                <h4 class="text-white font-sans text-2xl font-bold tracking-tighter">LOKASI</h4>
+                <p class="text-[10px] leading-relaxed max-w-xs">
+                    Authentic luxury streetwear born from the dust. We craft uniforms for the hustle.
+                    <br><br>
+                    Johannesburg, ZA<br>
+                    Est. 2026
+                </p>
+                <div class="flex gap-4 opacity-50 grayscale hover:grayscale-0 transition-all pt-4">
+                    <div class="h-6 w-10 border border-white/20 rounded flex items-center justify-center text-[7px]">
+                        VISA</div>
+                    <div class="h-6 w-10 border border-white/20 rounded flex items-center justify-center text-[7px]">MC
+                    </div>
+                </div>
+            </div>
+
+            <!-- Shop -->
+            <div class="space-y-6">
+                <h4 class="text-white uppercase tracking-widest text-[10px]">Shop</h4>
+                <div class="flex flex-col space-y-3">
+                    <a href="#" onclick="showPage('shop')"
+                        class="hover:text-white transition-colors uppercase tracking-wider">All Products</a>
+                    <a href="#" onclick="renderShop('MENS')"
+                        class="hover:text-white transition-colors uppercase tracking-wider">Mens</a>
+                    <a href="#" onclick="renderShop('WOMENS')"
+                        class="hover:text-white transition-colors uppercase tracking-wider">Womens</a>
+                    <a href="#" onclick="showPage('archive')"
+                        class="hover:text-white transition-colors uppercase tracking-wider">Archive</a>
+                </div>
+            </div>
+
+            <!-- Support -->
+            <div class="space-y-6">
+                <h4 class="text-white uppercase tracking-widest text-[10px]">Support</h4>
+                <div class="flex flex-col space-y-3">
+                    <a href="#" onclick="showPage('shipping')"
+                        class="hover:text-white transition-colors uppercase tracking-wider">Shipping & Returns</a>
+                    <a href="#" class="hover:text-white transition-colors uppercase tracking-wider">Size Guide</a>
+                    <a href="#" class="hover:text-white transition-colors uppercase tracking-wider">FAQ</a>
+                    <a href="#" class="hover:text-white transition-colors uppercase tracking-wider">Contact Us</a>
+                </div>
+            </div>
+
+            <!-- Newsletter -->
+            <div class="space-y-6">
+                <h4 class="text-white uppercase tracking-widest text-[10px]">Follow Us</h4>
+                <div class="flex flex-col gap-3 mt-4 font-mono text-[10px] uppercase tracking-wider">
+                    <!-- Instagram -->
+                    <a href="#" class="text-lokasi-mist hover:text-white transition-colors flex items-center gap-2">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg>
+                        <span>Instagram</span>
+                    </a>
+                    <!-- Twitter / X -->
+                    <a href="#" class="text-lokasi-mist hover:text-white transition-colors flex items-center gap-2">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 4l11.733 16h4.267l-11.733 -16z" />
+                            <path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" />
+                        </svg>
+                        <span>Twitter / X</span>
+                    </a>
+                    <!-- TikTok -->
+                    <a href="#" class="text-lokasi-mist hover:text-white transition-colors flex items-center gap-2">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
+                        </svg>
+                        <span>TikTok</span>
+                    </a>
+                    <!-- Facebook -->
+                    <a href="#" class="text-lokasi-mist hover:text-white transition-colors flex items-center gap-2">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                        </svg>
+                        <span>Facebook</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div
+            class="flex flex-col md:flex-row justify-between pt-8 border-t border-white/5 text-[10px] tracking-widest uppercase opacity-60">
+            <p>© 2026 LOKASI PROJECTS. ALL RIGHTS RESERVED.</p>
+            <div class="flex gap-6 mt-4 md:mt-0 items-center">
+                <a href="mailto:info@lokasi.co.za" class="hover:text-white">Contact Us</a>
+                <a href="admin.html"
+                    class="opacity-0 hover:opacity-20 transition-opacity cursor-default text-[8px]">STAFF</a>
+                <a href="#" onclick="showPage('privacy')" class="hover:text-white">Privacy Policy</a>
+                <a href="#" onclick="showPage('terms')" class="hover:text-white">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script src="data.js"></script>
+    <script>
+        // DATA - Loaded from data.js
+        // const products = ... (Handled by data.js)
+
+        // TEMPLATES
+        function getHomeTemplate() {
+            return `
+            <!-- STRONG HERO SECTION -->
+            <section class="h-screen w-full relative flex items-center justify-center overflow-hidden">
+                <!-- Background: Powerful, Clean Image -->
+                <div class="absolute inset-0 z-0">
+                    <img src="https://images.unsplash.com/photo-1506157788151-7fab5018265f?q=80&w=2000&auto=format&fit=crop" class="w-full h-full object-cover grayscale brightness-[0.5]" />
+                    <div class="absolute inset-0 bg-black/30"></div>
+                </div>
+
+                <div class="z-20 text-center relative w-full">
+                    <!-- Massive Brand Statement -->
+                    <h1 class="hero-title font-sans font-bold text-white uppercase mb-4 animate-chill-zoom">LO<span class="-mr-[0.11em]">K</span>ASI</h1>
+                    
+                    <div class="flex flex-col items-center gap-6 animate__animated animate__fadeInUp animate__delay-1s mt-16">
+                        <button onclick="showPage('shop')" class="group border border-white px-10 py-4 font-mono text-xs uppercase hover:bg-white hover:text-black transition-all duration-300 tracking-widest flex items-center gap-2">
+                            Explore Collection
+                            <svg class="group-hover:translate-x-1 transition-transform" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Footer Ticker fixed at bottom of Hero -->
+                <div class="absolute bottom-0 w-full border-t border-white/10 bg-black/80 backdrop-blur-md py-4 z-20">
+                    <div class="flex justify-between px-6 font-mono text-[10px] text-gray-400 uppercase tracking-widest">
+                        <span>EST. 2026</span>
+                        <span>COLLECTION</span>
+                        <span class="hidden md:inline">EKASI EDITION</span>
+                        <span>JOHANNESBURG, ZA</span>
+                    </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- LOOKBOOK GALLERY (Horizontal Drag/Scroll) -->
+            <section class="py-24 border-b border-white/5 overflow-hidden">
+                <div class="px-6 mb-12">
+                    <p class="font-mono text-[10px] tracking-[0.4em] uppercase text-lokasi-mist mb-2">Editorial — Drop 001</p>
+                    <h2 class="text-4xl md:text-6xl font-sans font-bold uppercase tracking-tighter">The Uniform</h2>
+                </div>
+
+                <div class="lookbook-container flex gap-4 px-6 overflow-x-auto pb-8 snap-x">
+                    ${window.products.map(p => `
+                        <div onclick="showProduct(${p.id})" class="snap-center flex-shrink-0 w-[80vw] md:w-[400px] aspect-[3/4] bg-lokasi-dark border border-white/5 relative group cursor-pointer overflow-hidden">
+                            <img src="${p.image}" class="w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-1000 group-hover:scale-110" />
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            <div class="absolute bottom-6 left-6 opacity-0 group-hover:opacity-100 transition-all transform translate-y-4 group-hover:translate-y-0 duration-500">
+                                <p class="font-mono text-[9px] uppercase tracking-widest text-lokasi-mist">${p.tag || 'ELITE'}</p>
+                                <h3 class="text-xl font-sans font-bold uppercase text-white">${p.name}</h3>
+                            </div>
+                        </div>
+                    `).join('')}
+                    <!-- Special Empty Frame for Mystery -->
+                    <div class="snap-center flex-shrink-0 w-[80vw] md:w-[400px] aspect-[3/4] border border-white/10 flex flex-col items-center justify-center space-y-4">
+                        <span class="text-[10px] font-mono text-white/20 uppercase tracking-[0.5em]">Upcoming Drop</span>
+                        <div class="w-8 h-[1px] bg-white/20"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PRODUCT SHOWCASE (Lookbook Style) -->
+            <section class="py-24 px-6 md:px-12 bg-[#080808]">
+                <div class="max-w-7xl mx-auto">
+                    <div class="flex justify-between items-end mb-16 px-2">
+                        <h2 class="text-3xl md:text-5xl font-sans font-bold text-white uppercase tracking-tighter">Inventory List</h2>
+                        <a href="#" onclick="showPage('shop')" class="font-mono text-xs text-gray-400 border-b border-gray-600 hover:text-white hover:border-white transition-all pb-1 uppercase tracking-widest">Master Collection</a>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
+                        ${window.products.slice(0, 6).map(p => createProductCard(p)).join('')}
+                    </div>
+                </div>
+            </section>
+
+            <!-- DESIGN PHILOSOPHY -->
+            <section class="py-32 bg-white text-black px-6 text-center">
+                <div class="max-w-4xl mx-auto space-y-8">
+                    <p class="font-mono text-xs font-bold tracking-[0.3em] uppercase opacity-60">The Manifesto</p>
+                    <h2 class="text-4xl md:text-7xl font-sans font-bold uppercase tracking-tighter leading-none">
+                        Respect The Dust.<br>Respect The Hustle.
+                    </h2>
+                    <p class="font-mono text-sm leading-relaxed max-w-2xl mx-auto pt-4 opacity-80">
+                        Lokasi is not just a brand. It is an identity. Born in the streets, crafted with the finest materials, and worn by those who know what it means to rise. 
+                    </p>
+                </div>
+            </section>
+        `;
+        }
+
+        function createProductCard(product) {
+            const isSoldOut = product.stock === 0;
+            const isLowStock = product.stock > 0 && product.stock <= 5;
+
+            return `
+                <div onclick="${isSoldOut ? '' : `showProduct(${product.id})`}" class="group cursor-pointer ${isSoldOut ? 'opacity-50 cursor-not-allowed' : ''}">
+                    <div class="aspect-[4/5] bg-lokasi-dark relative overflow-hidden mb-3">
+                        <img src="${product.image}" class="w-full h-full object-cover opacity-90 group-hover:opacity-100 ${isSoldOut ? '' : 'group-hover:scale-105'} transition-all duration-700" />
+                        
+                        ${product.tag ? `<div class="absolute top-3 left-3 bg-black text-white text-[10px] font-bold tracking-wider px-2 py-1 uppercase">${product.tag}</div>` : ''}
+                        
+                        ${isSoldOut ? `
+                            <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+                                <span class="border border-white/40 px-4 py-2 font-mono text-xs uppercase text-white backdrop-blur-sm">Sold Out</span>
+                            </div>
+                        ` : isLowStock ? `
+                            <div class="absolute top-3 right-3 bg-red-600 text-white text-[8px] font-bold tracking-widest px-2 py-1 uppercase animate-pulse">Low Stock: ${product.stock} Left</div>
+                        ` : ''}
+                        
+                        <!-- Size Overlay on Hover -->
+                        <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black translate-y-full ${isSoldOut ? '' : 'group-hover:translate-y-0'} transition-transform duration-300 flex justify-center gap-2">
+                            <span class="w-8 h-8 flex items-center justify-center border border-white/30 text-[10px] hover:bg-white hover:text-black transition-colors">S</span>
+                            <span class="w-8 h-8 flex items-center justify-center border border-white/30 text-[10px] hover:bg-white hover:text-black transition-colors">M</span>
+                            <span class="w-8 h-8 flex items-center justify-center border border-white/30 text-[10px] hover:bg-white hover:text-black transition-colors">L</span>
+                            <span class="w-8 h-8 flex items-center justify-center border border-white/30 text-[10px] hover:bg-white hover:text-black transition-colors">XL</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-start">
+                        <div>
+                           <h3 class="font-sans text-lg font-bold tracking-tight uppercase">${product.name}</h3>
+                           <p class="font-mono text-[10px] text-lokasi-mist mt-1 uppercase">${product.category}</p>
+                        </div>
+                        <div>
+                           ${product.discountPrice
+                    ? `<span class="font-mono text-xs text-lokasi-mist line-through mr-2">R${product.price.toFixed(2)}</span><span class="font-mono text-sm text-lokasi-accent">R${product.discountPrice.toFixed(2)}</span>`
+                    : `<p class="font-mono text-sm text-white">R${product.price.toFixed(2)}</p>`
+                }
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function getShopTemplate(category = 'ALL') {
+            loadData();
+            let filtered = window.products;
+            if (category === 'MENS') filtered = window.products.filter(p => p.gender === 'MENS' || p.gender === 'UNISEX');
+            if (category === 'WOMENS') filtered = window.products.filter(p => p.gender === 'WOMENS' || p.gender === 'UNISEX');
+            if (category === 'TOPS') filtered = window.products.filter(p => p.category === 'TOPS');
+            if (category === 'BOTTOMS') filtered = window.products.filter(p => p.category === 'BOTTOMS');
+
+            return `
+             <div class=" px-6 min-h-screen animate__animated animate__fadeIn">
+                <div class="flex flex-col md:flex-row justify-between items-end mb-12 border-b border-lokasi-grey/20 pb-6">
+                    <div>
+                        <h1 class="text-4xl md:text-6xl font-sans font-bold tracking-tighter text-white uppercase">The Collection</h1>
+                        <p class="font-mono text-lokasi-mist text-xs mt-2 tracking-widest uppercase">${category} ESSENTIALS</p>
+                    </div>
+                    <div class="flex flex-wrap gap-6 font-mono text-[10px] mt-6 md:mt-0 uppercase tracking-widest">
+                        <button onclick="renderShop('ALL')" class="${category === 'ALL' ? 'text-white border-b border-white' : 'text-lokasi-mist'} hover:text-white transition-all pb-1">ALL</button>
+                        <button onclick="renderShop('MENS')" class="${category === 'MENS' ? 'text-white border-b border-white' : 'text-lokasi-mist'} hover:text-white transition-all pb-1">MEN</button>
+                        <button onclick="renderShop('WOMENS')" class="${category === 'WOMENS' ? 'text-white border-b border-white' : 'text-lokasi-mist'} hover:text-white transition-all pb-1">WOMEN</button>
+                        <span class="text-white/10">|</span>
+                        <button onclick="renderShop('TOPS')" class="${category === 'TOPS' ? 'text-white border-b border-white' : 'text-lokasi-mist'} hover:text-white transition-all pb-1">TOPS</button>
+                        <button onclick="renderShop('BOTTOMS')" class="${category === 'BOTTOMS' ? 'text-white border-b border-white' : 'text-lokasi-mist'} hover:text-white transition-all pb-1">BOTTOMS</button>
+                    </div>
+                </div>
+                <div id="shop-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-12 pb-24">
+                     ${filtered.map(p => createProductCard(p)).join('')}
+                </div>
+             </div>
+        `;
+        }
+
+        // STATE
+        let cart = [];
+        let isCartOpen = false;
+        let selectedSize = 'L'; // Default selected size
+        let selectedColor = ''; // Default selected color
+        let pendingOrderId = ''; // Store ID for persistence across payment choice
+
+        // LOADER LOGIC
+        function removeLoader() {
+            setTimeout(() => {
+                const loader = document.getElementById('loader');
+                loader.classList.add('opacity-0');
+                loader.classList.add('pointer-events-none');
+                document.body.classList.remove('overflow-hidden');
+            }, 2500); // 2.5 seconds load time
+        }
+
+        // MOBILE MENU LOGIC
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            if (menu.classList.contains('-translate-x-full')) {
+                menu.classList.remove('-translate-x-full');
+            } else {
+                menu.classList.add('-translate-x-full');
+            }
+        }
+
+        // CART LOGIC
+        function toggleCart() {
+            const drawer = document.getElementById('cart-drawer');
+            const backdrop = document.getElementById('cart-backdrop');
+            isCartOpen = !isCartOpen;
+
+            if (isCartOpen) {
+                drawer.classList.remove('translate-x-full');
+                backdrop.classList.remove('hidden');
+                setTimeout(() => backdrop.classList.remove('opacity-0'), 10);
+            } else {
+                drawer.classList.add('translate-x-full');
+                backdrop.classList.add('opacity-0');
+                setTimeout(() => backdrop.classList.add('hidden'), 300);
+            }
+            renderCart();
+        }
+
+        function addToCart(id, size, color) {
+            const product = window.products.find(p => p.id === id);
+            if (!product) return;
+
+            // Use provided values or current globals
+            const s = size || selectedSize;
+            const c = color || selectedColor || (product.colors ? product.colors[0] : 'DEFAULT');
+
+            const existing = cart.find(item => item.id === id && item.size === s && item.color === c);
+            if (existing) {
+                existing.qty++;
+            } else {
+                cart.push({ ...product, qty: 1, size: s, color: c });
+            }
+            toggleCart(); // Open cart to show confirmation
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            renderCart();
+        }
+
+        function renderCart() {
+            const container = document.getElementById('cart-items');
+            const totalEl = document.getElementById('cart-total');
+            const countEl = document.getElementById('cart-count');
+
+            // Update Bubble
+            const totalQty = cart.reduce((acc, item) => acc + item.qty, 0);
+            countEl.innerText = totalQty;
+            countEl.classList.toggle('hidden', totalQty === 0);
+
+            // Update Items
+            if (cart.length === 0) {
+                container.innerHTML = `<div class="h-full flex flex-col items-center justify-center text-lokasi-mist space-y-4"><p>YOUR BAG IS EMPTY</p><button onclick="toggleCart()" class="underline text-white">CONTINUE SHOPPING</button></div>`;
+                totalEl.innerText = "R0.00";
+                return;
+            }
+
+            let total = 0;
+            container.innerHTML = cart.map((item, index) => {
+                total += (item.discountPrice || item.price) * item.qty;
+                return `
+                    <div class="flex gap-4 border-b border-white/10 pb-4">
+                        <div class="w-20 h-24 bg-lokasi-dark flex-shrink-0">
+                            <img src="${item.image}" class="w-full h-full object-cover" />
+                        </div>
+                        <div class="flex-1 flex flex-col justify-between">
+                            <div>
+                                <h4 class="font-sans font-bold text-sm uppercase">${item.name}</h4>
+                                <div class="flex items-center gap-2 mt-1">
+                                    <p class="text-[10px] text-lokasi-mist font-mono uppercase">${item.size} / ${item.qty}PCS</p>
+                                    <div class="w-2 h-2 rounded-full border border-white/20" style="background-color: ${item.color}"></div>
+                                </div>
+                            </div>
+                            <div class="flex justify-between items-end">
+                                <p class="font-mono text-sm">R${((item.discountPrice || item.price) * item.qty).toFixed(2)}</p>
+                                <button onclick="removeFromCart(${index})" class="text-[10px] underline text-lokasi-mist hover:text-white">REMOVE</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            totalEl.innerText = "R" + total.toFixed(2);
+        }
+
+        function checkout() {
+            toggleCart();
+            const modal = document.getElementById('checkout-modal');
+            modal.classList.remove('hidden');
+
+            const container = document.getElementById('checkout-items');
+            let subtotal = 0;
+            container.innerHTML = cart.map(item => {
+                subtotal += (item.discountPrice || item.price) * item.qty;
+                return `
+                    <div class="flex gap-4">
+                        <div class="w-16 h-20 bg-lokasi-dark flex-shrink-0 relative">
+                            <img src="${item.image}" class="w-full h-full object-cover" />
+                            <div class="absolute -top-2 -right-2 w-5 h-5 bg-lokasi-accent text-black flex items-center justify-center rounded-full text-[10px] font-bold">${item.qty}</div>
+                        </div>
+                        <div class="flex-1">
+                             <h4 class="font-sans font-bold text-xs uppercase">${item.name}</h4>
+                             <div class="flex items-center gap-2 py-1">
+                                <p class="text-[10px] text-lokasi-mist font-mono uppercase">${item.size}</p>
+                                <div class="w-2 h-2 rounded-full border border-white/20" style="background-color: ${item.color}"></div>
+                             </div>
+                        </div>
+                        <p class="font-mono text-xs">R${((item.discountPrice || item.price) * item.qty).toFixed(2)}</p>
+                    </div>
+                `;
+            }).join('');
+
+            // Calculate Totals
+            const tax = subtotal * 0.15; // 15% VAT
+            const shipping = 20; // Fixed Standard Shipping
+            const total = subtotal + tax + shipping;
+
+            // Update Summary (Find the container after the items)
+            // Note: In the HTML structure, the Totals container is technically inside the same scrolling div or I need to target it. 
+            // The Premium HTML has a specific block for totals. I'll target the parent's last child or use innerHTML insertion.
+
+            // In the premium HTML, I have:
+            // <div id="checkout-items"...></div>
+            // <div class="space-y-3... "> <-- This is where totals go.
+
+            const summaryContainer = container.nextElementSibling;
+            if (summaryContainer) {
+                summaryContainer.innerHTML = `
+                    <div class="flex justify-between text-lokasi-mist">
+                        <span>Subtotal</span>
+                        <span>R${subtotal.toFixed(2)}</span>
+                    </div>
+                    <div class="flex justify-between text-lokasi-mist">
+                        <span>VAT (15%)</span>
+                        <span>R${tax.toFixed(2)}</span>
+                    </div>
+                    <div class="flex justify-between text-lokasi-mist">
+                        <span>Shipping (Standard)</span>
+                        <span class="text-white">R${shipping.toFixed(2)}</span>
+                    </div>
+                    <div class="flex justify-between text-xl text-white pt-4 border-t border-white/10 font-bold font-sans">
+                        <span>Total</span>
+                        <span>R${total.toFixed(2)}</span>
+                    </div>
+                `;
+            }
+        }
+
+        function closeCheckout() {
+            const modal = document.getElementById('checkout-modal');
+            modal.classList.add('hidden');
+        }
+
+        let currentPaymentMethod = 'card';
+
+        function selectPaymentMethod(method) {
+            currentPaymentMethod = method;
+
+            const cardForm = document.getElementById('card-details-form');
+            const bankInfo = document.getElementById('bank-details-info');
+            const cardRadio = document.getElementById('card-radio-inner');
+            const bankRadio = document.getElementById('bank-radio-inner');
+            const btn = document.getElementById('pay-now-btn');
+
+            if (method === 'card') {
+                cardForm.classList.remove('hidden');
+                bankInfo.classList.add('hidden');
+                cardRadio.classList.remove('hidden');
+                bankRadio.classList.add('hidden');
+                btn.innerText = "PAY NOW";
+            } else {
+                cardForm.classList.add('hidden');
+                bankInfo.classList.remove('hidden');
+                cardRadio.classList.add('hidden');
+                bankRadio.classList.remove('hidden');
+                btn.innerText = "PLACE ORDER";
+
+                // Generate and store a fixed ID for the transaction
+                if (!pendingOrderId) pendingOrderId = "LKS-" + Math.floor(1000 + Math.random() * 9000);
+                document.getElementById('bank-ref-display').innerText = pendingOrderId;
+            }
+        }
+
+        function processOrder() {
+            const emailInput = document.querySelector('input[placeholder="Email Address"]');
+            const firstNameInput = document.querySelector('input[placeholder="First Name"]');
+            const lastNameInput = document.querySelector('input[placeholder="Last Name"]');
+            const cityInput = document.querySelector('input[placeholder="City"]');
+
+            if (!emailInput?.value || !firstNameInput?.value || !lastNameInput?.value || !document.getElementById('customer-phone').value) {
+                alert("PLEASE FILL IN ALL REQUIRED CONTACT INFO FOR DELIVERY.");
+                return;
+            }
+
+            // LAYER 1 SECURITY: BOT HONEYPOT CHECK
+            if (document.getElementById('b_name').value !== "" || document.getElementById('b_email').value !== "") {
+                console.warn("BOT_DETECTION_ACTIVE: Order rejected.");
+                return;
+            }
+
+            // LAYER 2 SECURITY: PRICE INTEGRITY VALIDATION
+            loadData();
+            let secureSubtotal = 0;
+            let integrityError = false;
+
+            cart.forEach(item => {
+                const masterProduct = window.products.find(p => p.id === item.id);
+                if (!masterProduct) { integrityError = true; return; }
+                const correctPrice = masterProduct.discountPrice || masterProduct.price;
+                if (item.price !== masterProduct.price) {
+                    integrityError = true;
+                }
+                secureSubtotal += (correctPrice * item.qty);
+            });
+
+            if (integrityError) {
+                alert("SECURITY_ALERT: Item data has been modified. Cart has been reset for your safety.");
+                cart = [];
+                updateCartUI();
+                return;
+            }
+
+            // Calculate Totals
+            let subtotal = cart.reduce((acc, item) => acc + ((item.discountPrice || item.price) * item.qty), 0);
+            const tax = subtotal * 0.15;
+            const shipping = 20;
+            const total = subtotal + tax + shipping;
+
+            const btn = document.getElementById('pay-now-btn');
+
+            // --- OPTION A: BANK TRANSFER (EFT) ---
+            if (currentPaymentMethod === 'bank') {
+                proceedWithOrder(total, emailInput.value, firstNameInput.value, lastNameInput.value, cityInput.value, "PENDING (EFT)");
+                return;
+            }
+
+            // --- OPTION B: PAYSTACK (REAL PAYMENT) ---
+            // NOTE: Replace this with your LIVE KEY from paystack.com to take real money
+            const PAYSTACK_PUBLIC_KEY = 'pk_test_47e93f8753239a044d0382346765239a044d038'; // Placeholder Test Key
+
+            btn.innerHTML = "OPENING SECURE PORTAL...";
+            btn.disabled = true;
+
+            const handler = PaystackPop.setup({
+                key: PAYSTACK_PUBLIC_KEY,
+                email: emailInput.value,
+                amount: Math.round(total * 100), // Paystack takes cents
+                currency: "ZAR",
+                ref: "LKS-" + Math.floor(Math.random() * 1e8),
+                metadata: {
+                    custom_fields: [
+                        { display_name: "Customer Name", variable_name: "customer_name", value: firstNameInput.value + " " + lastNameInput.value },
+                        { display_name: "Items", variable_name: "items", value: cart.map(i => `${i.name} (${i.size})`).join(", ") }
+                    ]
+                },
+                callback: function (response) {
+                    console.log("Payment Successful", response);
+                    proceedWithOrder(total, emailInput.value, firstNameInput.value, lastNameInput.value, cityInput.value, "PAID (GATEWAY)", response.reference);
+                },
+                onClose: function () {
+                    btn.innerHTML = "PAY NOW";
+                    btn.disabled = false;
+                    alert('Transaction was not completed.');
+                }
+            });
+            handler.openIframe();
+        }
+
+        function proceedWithOrder(total, email, fName, lName, city, status, paymentRef = '') {
+            const btn = document.getElementById('pay-now-btn');
+            btn.innerHTML = "FINALIZING...";
+
+            setTimeout(() => {
+                loadData();
+                const newOrder = {
+                    id: paymentRef || pendingOrderId || ("LKS-" + Math.floor(1000 + Math.random() * 9000)),
+                    customer: fName + " " + lName,
+                    email: email,
+                    items: cart.map(item => `${item.name} (${item.size}/${item.color})`),
+                    total: total,
+                    status: status,
+                    date: new Date().toISOString().split('T')[0],
+                    location: city || "South Africa"
+                };
+
+                window.orders.unshift(newOrder);
+                saveData();
+
+                // Success View Integration
+                const successMsg = document.getElementById('success-message');
+                const messageSentBox = successMsg.nextElementSibling;
+
+                if (status.includes("EFT")) {
+                    successMsg.innerText = "Order placed! Order ID: " + newOrder.id;
+                    if (messageSentBox) {
+                        messageSentBox.innerHTML = `
+                            <p class="text-white">ACTION REQUIRED:</p>
+                            <p>"Dear ${fName}, thank you for your order. We've received your request for order ${newOrder.id}. Please complete the bank transfer of R${total.toFixed(2)} so we can start packing your uniform. Delivery usually takes 2-5 working days after payment reflects. Respect the hustle."</p>
+                        `;
+                    }
+                } else {
+                    successMsg.innerText = "Payment Successful! Order ID: " + newOrder.id;
+                    if (messageSentBox) {
+                        messageSentBox.innerHTML = `
+                             <p class="text-white mb-4">MESSAGE SENT: "Welcome to the LOKASI family. Thank you for your order (${fName})."</p>
+                             
+                             <div class="bg-white/5 p-4 rounded-sm border border-white/10 mb-4 font-mono text-xs">
+                                <div class="border-b border-white/10 pb-2 mb-2 flex justify-between">
+                                    <span class="text-lokasi-mist">ORDER #${newOrder.id}</span>
+                                    <span class="text-white">${newOrder.date}</span>
+                                </div>
+                                <div class="space-y-2 mb-4">
+                                    ${cart.map(item => `
+                                        <div class="flex justify-between text-lokasi-mist">
+                                            <span>${item.name} (${item.size})</span>
+                                            <span class="text-white">R${item.price.toFixed(2)}</span>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                                <div class="border-t border-white/10 pt-2 flex justify-between font-bold text-white">
+                                    <span>TOTAL</span>
+                                    <span>R${total.toFixed(2)}</span>
+                                </div>
+                             </div>
+
+                            <p class="text-lokasi-mist text-xs mb-6">"It will take 2-5 working days to arrive. Respect the hustle."</p>
+                            
+                            <div class="pt-2 opacity-80">
+                                <p class="font-['Caveat'] text-2xl text-white transform -rotate-2">Lokasi Official</p>
+                            </div>
+                        `;
+                    }
+                }
+
+                document.getElementById('success-modal').classList.remove('hidden');
+                selectPaymentMethod('card');
+                cart = [];
+                pendingOrderId = ''; // Reset for next session
+            }, 1000);
+        }
+
+        // Templates - Updated to include calls to addToCart
+        // Note: I'm injecting the Cart HTML directly into the body in a separate step or ensuring it exists.
+        // For now, let's update individual product templates to use addToCart.
+
+        function getProductDetailTemplate(id) {
+            const p = window.products.find(x => x.id === id);
+            if (!p) return "Product not found";
+
+            // Set default color if not set
+            if (!selectedColor && p.colors) selectedColor = p.colors[0];
+
+            return `
+             <div class="min-h-screen px-6 pb-12">
+                 <button onclick="showPage('shop')" class="flex items-center gap-2 text-lokasi-mist hover:text-white transition-colors uppercase font-mono text-[10px] mb-8 tracking-widest">← Back to Archive</button>
+                 <div class="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-24">
+                    <div class="space-y-4">
+                        <div class="aspect-[4/5] bg-lokasi-dark relative overflow-hidden"><img src="${p.image}" class="w-full h-full object-cover" /></div>
+                    </div>
+                    <div class="space-y-8 md:pt-12">
+                         <div class="border-b border-white/10 pb-6 space-y-2">
+                             <div class="flex justify-between items-start">
+                                 <h1 class="text-3xl md:text-5xl font-sans font-bold tracking-tight uppercase">${p.name}</h1>
+                                 <div>
+                                     ${p.discountPrice
+                    ? `<span class="font-mono text-lg text-lokasi-mist line-through mr-2">R${p.price.toFixed(2)}</span><span class="font-mono text-2xl text-lokasi-accent">R${p.discountPrice.toFixed(2)}</span>`
+                    : `<span class="font-mono text-xl text-white">R${p.price.toFixed(2)}</span>`
+                }
+                                 </div>
+                             </div>
+                             <p class="font-mono text-[10px] text-lokasi-mist tracking-[0.2em] uppercase">COLLECTION 001 / ${p.category}</p>
+                         </div>
+                         <p class="text-lokasi-mist leading-relaxed text-sm font-mono">${p.desc}</p>
+                         
+                         <div class="grid grid-cols-2 gap-8">
+                             <div class="space-y-3">
+                                 <p class="text-[10px] font-mono uppercase text-lokasi-mist">Select Size</p>
+                                 <div class="flex gap-2" id="size-selector-${id}">
+                                    ${['S', 'M', 'L', 'XL'].map(s => `
+                                        <button onclick="selectSize(this, '${s}')" class="size-btn w-10 h-10 border border-white/10 hover:border-white transition-all font-mono text-[10px] flex items-center justify-center ${selectedSize === s ? 'bg-white text-black' : ''}">${s}</button>
+                                    `).join('')}
+                                 </div>
+                                 <p class="text-[9px] text-lokasi-accent mt-2 font-mono uppercase">
+                                     ${p.name.includes('VEST') ? '⚠ ONE SIZE FITS ALL (ADJUSTABLE)' :
+                    p.name.includes('PANTS') ? '⚠ FIT: BAGGY / RELAXED' :
+                        p.name.includes('OVERSIZED') ? '⚠ FIT: OVERSIZED (SIZE DOWN)' :
+                            'FIT: TRUE TO SIZE'}
+                                 </p>
+                             </div>
+
+                             <div class="space-y-3">
+                                 <p class="text-[10px] font-mono uppercase text-lokasi-mist">Select Vibe</p>
+                                 <div class="flex gap-3" id="color-selector">
+                                    ${(p.colors || []).map(hex => `
+                                        <button onclick="selectColor(this, '${hex}')" 
+                                            class="w-8 h-8 rounded-full border-2 ${selectedColor === hex ? 'border-white scale-110' : 'border-transparent'} hover:scale-110 transition-all" 
+                                            style="background-color: ${hex}"></button>
+                                    `).join('')}
+                                 </div>
+                             </div>
+                         </div>
+
+                         <div class="space-y-4">
+                             ${p.stock === 0 ? `
+                                 <button class="w-full bg-white/5 text-white/20 font-sans font-bold text-lg py-5 tracking-wide cursor-not-allowed uppercase border border-white/5">SOLD OUT</button>
+                             ` : `
+                                 <button onclick="addToCart(${p.id}, selectedSize, selectedColor)" 
+                                    class="w-full bg-white text-black font-sans font-bold text-lg py-5 tracking-wide hover:bg-lokasi-accent transition-colors uppercase shadow-2xl">
+                                    ADD TO BAG
+                                 </button>
+                                 ${p.stock <= 5 ? `<p class="text-center font-mono text-[10px] text-red-500 animate-pulse tracking-widest uppercase">Only ${p.stock} items remaining in stock.</p>` : ''}
+                             `}
+                         </div>
+                         
+                          <!-- TECH SPECS (Luxury Attribute Bars) -->
+                          <div class="space-y-6 border-t border-white/10 pt-8">
+                              <h4 class="text-[10px] font-mono uppercase tracking-[0.3em] text-white">Innovation Specs</h4>
+                              <div class="space-y-4">
+                                  <div class="space-y-2">
+                                      <div class="flex justify-between font-mono text-[9px] uppercase text-lokasi-mist">
+                                          <span>Breathability</span>
+                                          <span>${p.name.includes('TEE') || p.name.includes('SHORTS') ? '95%' : '75%'}</span>
+                                      </div>
+                                      <div class="tech-stat-bar"><div class="tech-stat-fill" style="transform: translateX(0); width: ${p.name.includes('TEE') || p.name.includes('SHORTS') ? '95%' : '75%'}"></div></div>
+                                  </div>
+                                  <div class="space-y-2">
+                                      <div class="flex justify-between font-mono text-[9px] uppercase text-lokasi-mist">
+                                          <span>Durability</span>
+                                          <span>${p.name.includes('HARD') || p.name.includes('TECH') ? '98%' : '88%'}</span>
+                                      </div>
+                                      <div class="tech-stat-bar"><div class="tech-stat-fill" style="transform: translateX(0); width: ${p.name.includes('HARD') || p.name.includes('TECH') ? '98%' : '88%'}"></div></div>
+                                  </div>
+                                  <div class="space-y-2">
+                                      <div class="flex justify-between font-mono text-[9px] uppercase text-lokasi-mist">
+                                          <span>Weight (GSM)</span>
+                                          <span>${p.name.includes('HOODIE') || p.name.includes('PANTS') ? '550g' : '280g'}</span>
+                                      </div>
+                                      <div class="tech-stat-bar"><div class="tech-stat-fill" style="transform: translateX(0); width: ${p.name.includes('HOODIE') || p.name.includes('PANTS') ? '90%' : '40%'}"></div></div>
+                                  </div>
+                              </div>
+                          </div>
+                          
+                          <!-- AUTHENTICITY GUARANTEE -->
+                          <div class="bg-white/5 border border-white/10 p-4 relative overflow-hidden group">
+                              <div class="absolute top-0 right-0 w-16 h-16 bg-white/5 rotate-45 transform translate-x-8 -translate-y-8"></div>
+                              <div class="flex items-center gap-4">
+                                  <div class="w-10 h-10 border border-white/20 flex items-center justify-center">
+                                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                                  </div>
+                                  <div>
+                                      <p class="text-[10px] font-mono uppercase text-white tracking-widest">Ironclad Authenticity</p>
+                                      <p class="text-[8px] font-mono text-lokasi-mist uppercase mt-1">NFC-Enabled Tag / 1-of-1 Digital Certificate</p>
+                                  </div>
+                              </div>
+                          </div>
+                          
+                         <!-- TRUST BADGES -->
+                         <div class="border-t border-white/10 pt-6 mt-6">
+                            <div class="flex items-center justify-center gap-2 mb-4 opacity-70">
+                                <img src="logo.png" class="h-3 w-auto" />
+                                <span class="text-[9px] font-mono uppercase tracking-widest text-lokasi-mist">Official Merchandise</span>
+                            </div>
+                            <div class="grid grid-cols-3 gap-2">
+                                <div class="flex flex-col items-center justify-center p-3 border border-white/10 bg-white/5 gap-2">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="text-white"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                                    <span class="text-[8px] font-mono uppercase text-lokasi-mist text-center leading-tight">Secure<br>Checkout</span>
+                                </div>
+                                <div class="flex flex-col items-center justify-center p-3 border border-white/10 bg-white/5 gap-2">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="text-white"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+                                    <span class="text-[8px] font-mono uppercase text-lokasi-mist text-center leading-tight">Fast<br>Shipping</span>
+                                </div>
+                                <div class="flex flex-col items-center justify-center p-3 border border-white/10 bg-white/5 gap-2">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="text-white"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+                                    <span class="text-[8px] font-mono uppercase text-lokasi-mist text-center leading-tight">Easy<br>Returns</span>
+                                </div>
+                            </div>
+                         </div>
+                         
+                         <div class="pt-8 grid grid-cols-3 gap-4 border-t border-white/5 opacity-50 font-mono text-[8px] uppercase tracking-widest text-center">
+                             <div>Sourced Locally</div>
+                             <div>Heavy Cotton</div>
+                             <div>Limited Drop</div>
+                         </div>
+                    </div>
+                 </div>
+             </div>
+            `;
+        }
+
+        function selectColor(btn, hex) {
+            const parent = btn.parentElement;
+            Array.from(parent.children).forEach(c => {
+                c.classList.remove('border-white', 'scale-110');
+                c.classList.add('border-transparent');
+            });
+            btn.classList.add('border-white', 'scale-110');
+            btn.classList.remove('border-transparent');
+            selectedColor = hex;
+        }
+
+        function selectSize(btn, size) {
+            // Simple visual toggle (in a real app complex state)
+            const parent = btn.parentElement;
+            Array.from(parent.children).forEach(c => {
+                c.classList.remove('bg-white', 'text-black');
+                c.classList.add('text-white');
+            });
+            btn.classList.add('bg-white', 'text-black');
+            btn.classList.remove('text-white');
+            selectedSize = size; // Update the global selectedSize
+        }
+
+        const aboutTemplate = `
+            <div class="min-h-screen pb-24">
+                <!-- Hero Section -->
+                <div class="relative h-[60vh] flex items-end p-6 border-b border-white/10">
+                    <div class="absolute inset-0 bg-lokasi-dark">
+                        <img src="https://images.unsplash.com/photo-1531206715517-5c0ba140b6e3?q=80&w=2000&auto=format&fit=crop" class="w-full h-full object-cover opacity-40 grayscale" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-lokasi-black via-transparent to-transparent"></div>
+                    </div>
+                    <div class="relative z-10 max-w-4xl">
+                        <p class="font-mono text-xs text-lokasi-accent mb-4 tracking-[0.2em] uppercase">The Origin Story</p>
+                        <h1 class="text-5xl md:text-8xl font-sans font-bold tracking-tighter text-white uppercase leading-none">From the Dust<br>To the World</h1>
+                    </div>
+                </div>
+
+                <!-- Manifesto Section -->
+                <div class="px-6 py-24 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12">
+                    <div class="md:col-span-4 self-start sticky top-24">
+                        <h2 class="text-xs font-mono text-lokasi-mist tracking-widest uppercase mb-4 border-l-2 border-white pl-4">The Philosophy</h2>
+                        <h3 class="text-3xl font-sans font-bold uppercase text-white leading-tight">We don't sell clothes.<br>We sell a mindset.</h3>
+                    </div>
+                    <div class="md:col-span-8 space-y-8 font-mono text-sm leading-loose text-lokasi-mist">
+                        <p class="text-white text-lg font-bold uppercase">"They said nothing good comes from the dust. We proved them wrong."</p>
+                        <p>LOKASI was born in the backstreets of the townships of Johannesburg. It started with a simple observation: Style in the Kasi isn't just about looking good—it's a survival tactic. It's about dignity. It's about commanding respect in a world that often overlooks you.</p>
+                        <p>We are a luxury streetwear brand that honors this hustle. We take the raw, gritty energy of the streets and refine it into high-end garments. Every stitch, every heavy-weight cotton fabric is chosen to withstand the grit of the daily grind while looking ready for the runway.</p>
+                        <p>This is not just clothing. This is a uniform for those rising up. It is a badge of honor for the dreamers, the creators, and the hustlers.</p>
+                    </div>
+                </div>
+
+                <!-- Image Break -->
+                <div class="grid grid-cols-1 h-[60vh] md:h-[80vh] w-full border-y border-white/10">
+                    <div class="relative bg-black flex items-center justify-center p-12">
+                        <h2 class="text-6xl md:text-9xl font-sans font-bold text-white uppercase tracking-tighter">LO<span class="-mr-[0.11em]">K</span>ASI</h2>
+                    </div>
+                </div>
+
+                <!-- The Process Section -->
+                <div class="px-6 py-24 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-24">
+                    <div>
+                         <h2 class="text-xs font-mono text-lokasi-mist tracking-widest uppercase mb-8 border-l-2 border-white pl-4">The Process</h2>
+                         <ul class="space-y-12">
+                            <li class="space-y-2">
+                                <h4 class="font-sans text-xl font-bold uppercase text-white">01. Sourcing</h4>
+                                <p class="font-mono text-xs text-lokasi-mist leading-relaxed">We source 100% African Cotton. Heavyweight, durable, and breathable. We believe in supporting the local economy before anything else.</p>
+                            </li>
+                             <li class="space-y-2">
+                                <h4 class="font-sans text-xl font-bold uppercase text-white">02. Craftsmanship</h4>
+                                <p class="font-mono text-xs text-lokasi-mist leading-relaxed">Cut and sewn in downtown Johannesburg. Our tailors are masters of their craft, ensuring every seam is reinforced for longevity.</p>
+                            </li>
+                             <li class="space-y-2">
+                                <h4 class="font-sans text-xl font-bold uppercase text-white">03. The Drop</h4>
+                                <p class="font-mono text-xs text-lokasi-mist leading-relaxed">We don't follow seasons. We drop when it's ready. Limited quantities to ensure exclusivity and zero waste.</p>
+                            </li>
+                         </ul>
+                    </div>
+                    <div class="flex flex-col justify-end items-end text-right opacity-50">
+                        <div class="text-9xl font-sans font-bold text-stroke">ZA</div>
+                        <p class="font-mono text-xs tracking-widest uppercase mt-4">Designed & Manufactured<br>In South Africa</p>
+                    </div>
+                </div>
+
+                 <!-- Footer Quote -->
+                 <div class="py-24 text-center border-t border-white/10 bg-white/5">
+                     <p class="font-sans text-2xl md:text-4xl font-bold uppercase text-white mb-6 tracking-tight">"Respect The Drip.<br>Respect The Hustle."</p>
+                     <button onclick="showPage('shop')" class="inline-block border border-white px-8 py-3 font-mono text-xs uppercase hover:bg-white hover:text-black transition-all">Shop The Collection</button>
+                 </div>
+            </div>
+        `;
+
+        const archiveTemplate = `
+             <div class="min-h-screen px-6 pt-12 pb-24">
+                <h1 class="text-4xl md:text-6xl font-sans font-bold tracking-tighter text-white mb-4 uppercase">The Archive</h1>
+                <p class="font-mono text-lokasi-mist text-xs mb-12 uppercase tracking-widest">Past Collections / Never Restocking</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 opacity-60">
+                     <!-- Archive Item 1 -->
+                     <div class="grayscale hover:grayscale-0 transition-all cursor-not-allowed">
+                        <div class="aspect-[4/5] bg-white/5 relative mb-4">
+                            <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover" />
+                            <div class="absolute inset-0 bg-black/50 flex items-center justify-center font-mono text-xs uppercase text-white border border-white/20 m-4">Sold Out</div>
+                        </div>
+                        <h3 class="font-sans text-lg font-bold">OG LOGO HOODIE</h3>
+                        <p class="font-mono text-[10px] text-lokasi-mist">DROP 000</p>
+                     </div>
+                      <!-- Archive Item 2 -->
+                     <div class="grayscale hover:grayscale-0 transition-all cursor-not-allowed">
+                        <div class="aspect-[4/5] bg-white/5 relative mb-4">
+                            <img src="https://images.unsplash.com/photo-1552160753-117159d27f88?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover" />
+                             <div class="absolute inset-0 bg-black/50 flex items-center justify-center font-mono text-xs uppercase text-white border border-white/20 m-4">Sold Out</div>
+                        </div>
+                        <h3 class="font-sans text-lg font-bold">TACTICAL VEST</h3>
+                        <p class="font-mono text-[10px] text-lokasi-mist">DROP 000</p>
+                     </div>
+                </div>
+             </div>
+        `;
+
+        const privacyTemplate = `
+            <div class=" px-6 pt-12 pb-24 max-w-3xl mx-auto font-mono text-xs leading-relaxed text-lokasi-mist">
+                <h1 class="text-3xl md:text-5xl font-sans font-bold tracking-tighter text-white mb-12 uppercase">Privacy Policy</h1>
+                <p class="mb-6">LAST UPDATED: JANUARY 2026</p>
+                <p class="mb-6">LOKASI ("we", "us") is committed to protecting your privacy. This policy details how we collect, use, and share your data.</p>
+                <ul class="list-disc pl-4 space-y-4 mb-8">
+                    <li><strong>COLLECTION:</strong> We collect personal info (name, email, address) only when you purchase or sign up.</li>
+                    <li><strong>USAGE:</strong> To process orders, send updates (if opted-in), and improve our site.</li>
+                    <li><strong>SECURITY:</strong> We use SSL encryption for all transactions. We do not store credit card details.</li>
+                    <li><strong>SHARING:</strong> We do not sell your data. We share only with necessary providers (e.g., Shipping couriers, Payment processors).</li>
+                </ul>
+                <p>For any privacy concerns, contact: legal@lokasi.co.za</p>
+            </div>
+        `;
+
+        const termsTemplate = `
+            <div class=" px-6 pt-12 pb-24 max-w-3xl mx-auto font-mono text-xs leading-relaxed text-lokasi-mist">
+                <h1 class="text-3xl md:text-5xl font-sans font-bold tracking-tighter text-white mb-12 uppercase">Terms of Service</h1>
+                <p class="mb-6">PLEASE READ CAREFULLY BEFORE USING OUR SITE.</p>
+                <p class="mb-6"><strong>1. ACCEPTANCE:</strong> By accessing LOKASI, you agree to these terms.</p>
+                <p class="mb-6"><strong>2. PURCHASES:</strong> We reserve the right to refuse any order. Prices valid for South Africa & International.</p>
+                <p class="mb-6"><strong>3. INTELLECTUAL PROPERTY:</strong> All designs, logos, and imagery are property of LOKASI PROJECTS.</p>
+                <p class="mb-6"><strong>4. RESALE:</strong> Unauthorized commercial resale of our products is prohibited.</p>
+                <p class="mb-6"><strong>5. RETURNS:</strong> Returns accepted within 14 days for store credit only. Item must be unworn with tags.</p>
+                <p>JURISDICTION: Governed by the laws of South Africa.</p>
+            </div>
+            </div>
+        `;
+
+        const shippingTemplate = `
+            <div class=" px-6 pt-12 pb-24 max-w-3xl mx-auto font-mono text-xs leading-relaxed text-lokasi-mist">
+                <h1 class="text-3xl md:text-5xl font-sans font-bold tracking-tighter text-white mb-12 uppercase">Shipping & Returns</h1>
+                
+                <div class="mb-12 border-b border-white/10 pb-12">
+                     <h2 class="text-xl font-sans font-bold uppercase text-white mb-6">Local Delivery (ZA)</h2>
+                     <p class="mb-4">We ship nationwide via The Courier Guy. Standard delivery takes 2-4 business days to main centers (JHB, CPT, DUR, PTA). Outlying areas may take 3-5 days.</p>
+                     <ul class="list-disc pl-4 space-y-2">
+                        <li><strong>Standard Shipping:</strong> R99.00 (Free for orders over R1000)</li>
+                        <li><strong>Express/Overnight:</strong> R150.00 (JHB Only, Order before 12pm)</li>
+                     </ul>
+                </div>
+
+                <div class="mb-12 border-b border-white/10 pb-12">
+                     <h2 class="text-xl font-sans font-bold uppercase text-white mb-6">International Shipping</h2>
+                     <p class="mb-4">LOKASI ships globally via DHL Express. Delivery takes 5-7 business days depending on customs processing in your country.</p>
+                     <p>Note: Import duties and taxes are the responsibility of the customer.</p>
+                </div>
+
+                <div>
+                     <h2 class="text-xl font-sans font-bold uppercase text-white mb-6">Returns & Exchanges</h2>
+                     <p class="mb-4">Because our drops are limited and exclusive, we have a strict return policy to ensure quality and fairness.</p>
+                     
+                     <h3 class="font-bold text-white mb-2">The "24-Hour" Rule:</h3>
+                     <ul class="list-disc pl-4 space-y-2 mb-6">
+                        <li><strong>24-Hour Check:</strong> You must log a return/exchange request within 24 hours of delivery.</li>
+                        <li><strong>Condition:</strong> Items must be completely unworn, with all original tags and packaging intact.</li>
+                        <li><strong>Process:</strong> Once approved, we will arrange collection.</li>
+                     </ul>
+
+                     <h3 class="font-bold text-white mb-2">How to Return:</h3>
+                     <p class="mb-2">1. Email <strong>returns@lokasi.co.za</strong> within 24 hours of receiving your order.</p>
+                     <p class="mb-2">2. Include your Order # and reason for return.</p>
+                     <p>3. If approved, we will send a courier to collect.</p>
+                </div>
+            </div>
+        `;
+
+        // NAVIGATION LOGIC
+        const appContent = document.getElementById('app-content');
+
+        function showPage(pageName) {
+            loadData();
+            window.scrollTo(0, 0);
+            if (pageName === 'home') {
+                appContent.innerHTML = getHomeTemplate();
+            } else if (pageName === 'shop') {
+                appContent.innerHTML = getShopTemplate();
+            } else if (pageName === 'about') {
+                appContent.innerHTML = aboutTemplate;
+            } else if (pageName === 'archive') {
+                appContent.innerHTML = archiveTemplate;
+            } else if (pageName === 'privacy') {
+                appContent.innerHTML = privacyTemplate;
+            } else if (pageName === 'terms') {
+                appContent.innerHTML = termsTemplate;
+            } else if (pageName === 'shipping') {
+                appContent.innerHTML = shippingTemplate;
+            }
+        }
+
+        function showProduct(id) {
+            window.scrollTo(0, 0);
+            appContent.innerHTML = getProductDetailTemplate(id);
+        }
+
+        function renderShop(category) {
+            window.scrollTo(0, 0);
+            appContent.innerHTML = getShopTemplate(category);
+        }
+
+        // INITIAL LOAD
+        showPage('home');
+
+        // PRO DEFAULTS: SHOW NEWSLETTER
+        window.addEventListener('load', () => {
+            const isSubscribed = localStorage.getItem('lokasi_subscribed');
+            if (!isSubscribed) {
+                setTimeout(() => {
+                    document.getElementById('newsletter-modal').classList.remove('hidden');
+                }, 4000); // Show after 4 seconds
+            }
+        });
+
+        function closeNewsletter() {
+            document.getElementById('newsletter-modal').classList.add('hidden');
+        }
+
+        function handleSubscribe() {
+            const email = document.getElementById('news-email').value;
+            if (email && email.includes('@')) {
+                subscribeNewsletter(email);
+                closeNewsletter();
+                alert("ACCESS GRANTED. CHECK YOUR INBOX SOON.");
+            } else {
+                alert("ENTER A VALID EMAIL TO ACCESS THE BLACKLIST.");
+            }
+        }
+
+    </script>
+    <script>
+        // CURSOR LOGIC
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorOutline = document.querySelector('.cursor-outline');
+
+        window.addEventListener('mousemove', (e) => {
+            const posX = e.clientX;
+            const posY = e.clientY;
+
+            // Dot follows instantly
+            cursorDot.style.left = `${posX}px`;
+            cursorDot.style.top = `${posY}px`;
+
+            // Outline follows with slight delay/smoothness (handled by CSS transition: all 0.08s)
+            cursorOutline.style.left = `${posX}px`;
+            cursorOutline.style.top = `${posY}px`;
+        });
+
+        // Hover states
+        document.querySelectorAll('a, button, .group').forEach(el => {
+            el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+            el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
+        });
+
+        // Mutation Observer to handle dynamic content for hover listeners
+        const observer = new MutationObserver((mutations) => {
+            document.querySelectorAll('a, button, .group').forEach(el => {
+                // Remove old listeners to avoid duplicates if possible, or just add logic to check
+                el.removeEventListener('mouseenter', () => document.body.classList.add('hovering'));
+                el.removeEventListener('mouseleave', () => document.body.classList.remove('hovering'));
+
+                el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+                el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
+            });
+        });
+
+        observer.observe(document.body, { childList: true, subtree: true });
+
+    </script>
+    <!-- IRONCLAD SECURITY: DevTools & Inspection Protection -->
+    <script>
+        document.addEventListener('contextmenu', event => event.preventDefault()); // Disable Right Click
+        document.onkeydown = function (e) {
+            if (e.keyCode == 123) return false; // Disable F12
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) return false; // Disable Ctrl+Shift+I
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) return false; // Disable Ctrl+Shift+C
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) return false; // Disable Ctrl+Shift+J
+            if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false; // Disable Ctrl+U
+        };
+    </script>
+</body>
+
+</html>
