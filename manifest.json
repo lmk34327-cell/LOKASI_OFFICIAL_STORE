@@ -1,0 +1,15 @@
+{
+  "short_name": "LOKASI",
+  "name": "LOKASI | Township Luxury",
+  "icons": [
+    {
+      "src": "https://images.unsplash.com/photo-1542272454315-4c01d7abdf4a?q=80&w=192&h=192&auto=format&fit=crop",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ],
+  "start_url": "./index.html",
+  "background_color": "#000000",
+  "display": "standalone",
+  "theme_color": "#000000"
+}

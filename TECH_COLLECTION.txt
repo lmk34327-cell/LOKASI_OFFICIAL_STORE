@@ -1,0 +1,103 @@
+// LOKASI TECH-LUXURY COLLECTION (NIKE-STYLE INNOVATION)
+const techCollection = [
+    {
+        id: 701,
+        name: "LOKASI VAPOR-TECH TEE",
+        price: 850.00,
+        category: "TOPS",
+        stock: 10,
+        tag: "ELITE",
+        image: "mockups/vapor_tech_tee.png",
+        desc: "Laser-perforated lightweight technical cotton. Bonded shoulder seams for seamless comfort. Zero-distraction fit."
+    },
+    {
+        id: 702,
+        name: "LOKASI MATRIX-MESH SHORTS",
+        price: 1100.00,
+        category: "BOTTOMS",
+        stock: 10,
+        tag: "PERFORMANCE",
+        image: "mockups/matrix_mesh_shorts.png",
+        desc: "Double-layered training shorts with compression liner. Water-repellent matte shell with hidden zip utility pockets."
+    },
+    {
+        id: 703,
+        name: "LOKASI CORE-BONDED HOODIE",
+        price: 2200.00,
+        category: "TOPS",
+        stock: 10,
+        tag: "ICONS",
+        image: "mockups/core_bonded_hoodie.png",
+        desc: "Heavyweight tech-fleece with internal seam-bonding. Articulated hood and structured thumbhole cuffs."
+    },
+    {
+        id: 704,
+        name: "LOKASI CHROME-ONYX TRACKSUIT",
+        price: 3500.00,
+        category: "SETS",
+        stock: 10,
+        tag: "LIMITED",
+        image: "mockups/chrome_onyx_tracksuit.png",
+        desc: "The pinnacle of Kasi Luxury. Full iridescent-matte shell with 3M reflective 'LOKASI' insignia. Engineered for the night."
+    },
+    {
+        id: 705,
+        name: "LOKASI AERODOME TRUCKER",
+        price: 450.00,
+        category: "ACCESSORIES",
+        stock: 10,
+        tag: "ESSENTIAL",
+        image: "mockups/aerodome_trucker.png",
+        desc: "Structured crown with high-density laser-cut mesh. 3D rubberized LOKASI logo."
+    },
+    {
+        id: 706,
+        name: "LOKASI ELITE TRAINING TEE",
+        price: 750.00,
+        category: "TOPS",
+        stock: 10,
+        tag: "CORE",
+        image: "mockups/elite_training_tee.png",
+        desc: "360-degree stretch fabric designed for high-intensity movement. Moisture-wicking technology."
+    },
+    {
+        id: 707,
+        name: "LOKASI STEALTH FLIGHT SHORTS",
+        price: 950.00,
+        category: "BOTTOMS",
+        stock: 10,
+        tag: "UTILITY",
+        image: "mockups/stealth_flight_shorts.png",
+        desc: "Inspired by military flight gear. Oversized 3D cargo pockets with industrial webbing straps."
+    },
+    {
+        id: 708,
+        name: "LOKASI PHANTOM TECH HOODIE",
+        price: 1950.00,
+        category: "TOPS",
+        stock: 10,
+        tag: "STEALTH",
+        image: "mockups/phantom_tech_hoodie.png",
+        desc: "Deep-black technical jersey with invisible zip closures. Minimalist back-print coordinates."
+    },
+    {
+        id: 709,
+        name: "LOKASI KINETIC TRACK-PANTS",
+        price: 1650.00,
+        category: "BOTTOMS",
+        stock: 10,
+        tag: "KINETIC",
+        image: "mockups/kinetic_track_pants.png",
+        desc: "Multi-panel anatomical construction. Tapered aero-fit with reflective safety accents."
+    },
+    {
+        id: 710,
+        name: "LOKASI ARCHIVE BEANIE",
+        price: 350.00,
+        category: "ACCESSORIES",
+        stock: 10,
+        tag: "ARCHIVE",
+        image: "mockups/archive_beanie.png",
+        desc: "Heavy-ribbed merino wool blend. Signature LOKASI manifesto tag on reverse."
+    }
+];

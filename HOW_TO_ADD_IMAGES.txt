@@ -1,0 +1,38 @@
+# How to Add Your Own Product Images
+
+So you've made your own designs? Here is how to put them on the website.
+
+## Step 1: Save Your Image
+1.  Take your photo or design file (JPG or PNG).
+2.  Rename it to something simple (no spaces).
+    *   Example: `my_new_tee.png` or `red_hoodie.jpg`
+3.  Copy the file into the `mockups` folder inside your `LOKASI_OFFICIAL_STORE` folder.
+    *   Path: `Documents/LOKASI_OFFICIAL_STORE/mockups/`
+
+## Step 2: Add to Website Code
+1.  Open the file `data.js` (you can open it with Notepad or a code editor).
+2.  Find the `defaultProducts` list.
+3.  Copy one of the existing blocks (everything between `{` and `}`).
+4.  Paste it at the top of the list.
+5.  Change the `image` part to match your new filename.
+    *   Change: `image: "mockups/old_image.png"`
+    *   To: `image: "mockups/my_new_tee.png"`
+6.  Update the `name`, `price`, and `desc` (description) as needed.
+
+## Example
+```javascript
+{ 
+  id: 999, 
+  name: "MY NEW DESIGN", 
+  price: 599.99, 
+  category: "TOPS", 
+  gender: "UNISEX", 
+  tag: "FRESH", 
+  image: "mockups/my_new_tee.png", // <--- THIS IS THE IMPORTANT PART
+  desc: "Description of your new fire drip.", 
+  colors: ["#000000"] 
+},
+```
+
+## Step 3: Refresh
+Refresh your website (F5) and the new item will appear!
